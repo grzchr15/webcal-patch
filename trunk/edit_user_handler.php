@@ -18,6 +18,8 @@ $upassword1 = getPostValue ( 'upassword1' );
 $upassword2 = getPostValue ( 'upassword2' );
 $uis_admin = getPostValue ( 'uis_admin' );
 $uenabled = getPostValue ( 'uenabled' );
+if($uenabled=='Y')	$uenabled="Y";
+else 				$uenabled="N";
 
 $error = '';
 if ( ! $is_admin )
@@ -93,7 +95,7 @@ if ( ! empty ( $delete ) && $formtype == 'edituser' ) {
               $error = $blankUserStr;
             else {
               user_add_user ( $user, $upassword1, $ufirstname, $ulastname,
-                $uemail, $uis_admin, $u_enabled );
+                $uemail, $uis_admin, $uenabled );
               activity_log ( 0, $login, $user, LOG_USER_ADD,
                 "$ufirstname $ulastname"
                  . ( empty ( $uemail ) ? '' : " <$uemail>" ) );
