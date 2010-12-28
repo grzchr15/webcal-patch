@@ -340,8 +340,10 @@ function etranslate ( $str, $decode = '' ) {
  */
 function tooltip ( $str, $decode = '' ) {
   $ret = translate ( $str, $decode );
-  $ret = eregi_replace ( '<[^>]+>', '', $ret );
-  return eregi_replace ( '"', "'", $ret );
+  //$ret = eregi_replace ( '<[^>]+>', '', $ret );
+  //return eregi_replace ( '"', "'", $ret );
+  $ret = preg_replace ( '/<[^>]+>/', '', $ret );
+  return preg_replace ( '/"/', "'", $ret );
 }
 
 /* Translates and removes HTML from text, and prints it.

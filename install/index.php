@@ -1496,7 +1496,8 @@ translate ( 'You should select Web Server from the list of User Authentication c
     <td class="prompt"><?php etranslate ( 'Environment' ) ?>:</td>
     <td>
      <select name="form_mode">
-     <?php if ( preg_match ( "/dev/", $settings['mode'] ) )
+     <?php 
+     	if ( preg_match ( "/dev/", $settings['mode'] ) )
          $mode = 'dev'; // development
         else
          $mode = 'prod'; //production

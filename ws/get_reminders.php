@@ -88,7 +88,8 @@ if ( $login != $user ) {
 // exit;
 // }
 
-$startdate = mktime ();
+//$startdate = mktime ();
+$startdate = time ();
 $enddate = $startdate + ( $DAYS_IN_ADVANCE * 86400 );
 
 // Now read all the repeating events.

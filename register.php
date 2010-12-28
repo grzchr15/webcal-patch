@@ -2,7 +2,7 @@
 /* $Id: register.php,v 1.36.2.4 2007/11/12 15:44:55 umcesrjones Exp $ */
 require_once 'includes/classes/WebCalendar.class';
 
-$WebCalendar =& new WebCalendar ( __FILE__ );
+$WebCalendar =new WebCalendar ( __FILE__ );
 
 include 'includes/translate.php';
 include 'includes/config.php';

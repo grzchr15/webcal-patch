@@ -33,7 +33,8 @@ if ( strlen ( $login ) == 0 ) {
 
 $view = 'week';
 // TODO This is suspect
-$today = mktime ();
+//$today = mktime ();
+$today = time ();
 
 if ( ! empty ( $date ) && ! empty ( $date ) ) {
   $thisyear = substr ( $date, 0, 4 );
