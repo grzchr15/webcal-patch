@@ -2,7 +2,7 @@
 /* $Id: login-app.php,v 1.24.2.1 2007/09/17 02:39:21 cknudsen Exp $ */
 require_once 'includes/classes/WebCalendar.class';
 
-$WebCalendar =& new WebCalendar ( __FILE__ );
+$WebCalendar =new WebCalendar ( __FILE__ );
 
 include 'includes/translate.php';
 include 'includes/config.php';
