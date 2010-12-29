@@ -16,6 +16,21 @@ include_once 'includes/init.php';
 include 'includes/xcal.php'; // only to display recurrance info
 // Load Doc classes for attachments and comments
 include 'includes/classes/Doc.class';
+//TODO find 5.3 way of doing it start
+ /* Are attachments enabled? */
+  function attachmentsEnabled () {
+    global $ALLOW_ATTACH;
+
+    return ( ! empty ( $ALLOW_ATTACH ) && $ALLOW_ATTACH == 'Y' );
+  }
+
+  /* Are comments enabled? */
+  function commentsEnabled () {
+    global $ALLOW_COMMENTS;
+
+    return ( ! empty ( $ALLOW_COMMENTS ) && $ALLOW_COMMENTS == 'Y' );
+  }
+//TODO find 5.3 way of doing it start
 include 'includes/classes/DocList.class';
 include 'includes/classes/AttachmentList.class';
 include 'includes/classes/CommentList.class';
@@ -808,7 +823,7 @@ if ( $eType == 'task' ) {
   }
 }
 
-if ( Doc::attachmentsEnabled () && $rss_view == false ) {
+if ( attachmentsEnabled () && $rss_view == false ) {
   echo '
       <tr>
         <td class="aligntop bold">' . translate ( 'Attachments' ) . ':</td>
@@ -836,7 +851,7 @@ if ( Doc::attachmentsEnabled () && $rss_view == false ) {
       </tr>';
 }
 
-if ( Doc::commentsEnabled () ) {
+if ( commentsEnabled () ) {
   echo '
       <tr>
         <td class="aligntop bold">' . translate ( 'Comments' ) . ':</td>
@@ -949,11 +964,11 @@ if ( ( $is_my_event || $is_nonuser_admin || $is_assistant || $can_approve ) &&
    . '</a></li>';
 }
 // TODO add these permissions to the UAC list
-$can_add_attach = ( Doc::attachmentsEnabled () && $login != '__public__'
+$can_add_attach = ( attachmentsEnabled () && $login != '__public__'
   && ( ( $login == $create_by ) || ( $is_my_event && $ALLOW_ATTACH_PART == 'Y' ) ||
   ( $ALLOW_ATTACH_ANY == 'Y' ) || $is_admin  ) );
 
-$can_add_comment = ( Doc::commentsEnabled () && $login != '__public__'
+$can_add_comment = ( commentsEnabled () && $login != '__public__'
   && ( ( $login == $create_by ) ||  ( $is_my_event && $ALLOW_COMMENTS_PART == 'Y' ) ||
   ( $ALLOW_COMMENTS_ANY == 'Y' ) || $is_admin  ) );
 

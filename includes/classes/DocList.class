@@ -13,7 +13,7 @@
 /**
  * A list of Doc objects.
  */
-class DocList {
+class DocList extends Doc {
   var $_count = 0;
   var $_event_id = -1;
   var $_type;
@@ -59,7 +59,7 @@ class DocList {
     if ( $type != 'A' && $type != 'C' )
       die_miserable_death ( "Invalid DocList type '$type'" );
 
-    $sql = Doc::getSQL ( $event_id, $type );
+    $sql = $this->getSQL ( $event_id, $type );
 
     $res = dbi_execute ( $sql );
     if ( ! $res ) {
