@@ -3,7 +3,7 @@
  *
  * This page handles logins for nonuser calendars.
  */
-require_once 'includes/classes/WebCalendar.class';
+require_once 'includes/classes/WebCalendar.class.php';
 
 $WebCalendar =new WebCalendar ( __FILE__ );
 

@@ -13,7 +13,7 @@ if ( ! empty ( $dummy ) )
 unset ( $_SESSION['webcal_login'] );
 unset ( $_SESSION['webcalendar_session'] );
 
-require_once 'includes/classes/WebCalendar.class';
+require_once 'includes/classes/WebCalendar.class.php';
 
 $WebCalendar =new WebCalendar ( __FILE__ );
 

@@ -19,9 +19,9 @@
  *
  **************************************************************************/
 
-require_once 'includes/classes/WebCalendar.class';
-require_once 'includes/classes/Event.class';
-require_once 'includes/classes/RptEvent.class';
+require_once 'includes/classes/WebCalendar.class.php';
+require_once 'includes/classes/Event.class.php';
+require_once 'includes/classes/RptEvent.class.php';
 
 $WebCalendar =new WebCalendar ( __FILE__ );
 

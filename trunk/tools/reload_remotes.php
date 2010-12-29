@@ -48,7 +48,7 @@ $old_path = ini_get ( 'include_path' );
 $delim = ( strstr ( $old_path, ';' ) ? ';' : ':' );
 ini_set ( 'include_path', $old_path . $delim . __WC_INCLUDEDIR . $delim );
 
-require_once __WC_INCLUDEDIR . '/classes/WebCalendar.class';
+require_once __WC_INCLUDEDIR . '/classes/WebCalendar.class.php';
 
 $WebCalendar =new WebCalendar ( __FILE__ );
 

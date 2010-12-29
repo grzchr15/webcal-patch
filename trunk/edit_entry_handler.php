@@ -1,7 +1,7 @@
 <?php
 /* $Id: edit_entry_handler.php,v 1.172.2.20 2010/08/15 18:54:34 cknudsen Exp $ */
 include_once 'includes/init.php';
-require ( 'includes/classes/WebCalMailer.class' );
+require ( 'includes/classes/WebCalMailer.class.php' );
 $mail = new WebCalMailer;
 
 load_user_categories ();

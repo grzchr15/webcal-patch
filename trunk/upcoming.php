@@ -83,9 +83,9 @@ $save_current_working_dir= getcwd ();
 chdir(dirname(__FILE__));
 
 include_once 'includes/translate.php';
-require_once 'includes/classes/WebCalendar.class';
-require_once 'includes/classes/Event.class';
-require_once 'includes/classes/RptEvent.class';
+require_once 'includes/classes/WebCalendar.class.php';
+require_once 'includes/classes/Event.class.php';
+require_once 'includes/classes/RptEvent.class.php';
 
 $WebCalendar =new WebCalendar ( __FILE__ );
 

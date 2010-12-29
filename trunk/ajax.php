@@ -4,7 +4,7 @@
  * Description
  * This is the handler for Ajax httpXmlRequests.
  */
-require_once 'includes/classes/WebCalendar.class';
+require_once 'includes/classes/WebCalendar.class.php';
 
 $WebCalendar =new WebCalendar ( __FILE__ );
 
@@ -65,8 +65,8 @@ if ( $page == 'edit_remotes' || $page == 'edit_nonuser' ) {
   }
 } elseif ( $page == 'minitask' ) {
   $name = ( ! empty ( $name ) ? $name : 0 );
-  require_once 'includes/classes/Event.class';
-  require_once 'includes/classes/RptEvent.class';
+  require_once 'includes/classes/Event.class.php';
+  require_once 'includes/classes/RptEvent.class.php';
   include_once 'includes/gradient.php';
   $column_array = array ( 'we.cal_priority', 'we.cal_name',
     'we.cal_due_date', 'weu.cal_percent' );

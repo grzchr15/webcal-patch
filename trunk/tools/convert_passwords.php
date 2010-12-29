@@ -19,7 +19,7 @@ define ( '__WC_BASEDIR', '..' ); // Points to the base WebCalendar directory
                           // relative to current working directory.
 define ( '__WC_INCLUDEDIR', '../includes' );
 
-require_once  __WC_INCLUDEDIR . '/classes/WebCalendar.class';
+require_once  __WC_INCLUDEDIR . '/classes/WebCalendar.class.php';
 
 $WebCalendar =new WebCalendar ( __FILE__ );
 

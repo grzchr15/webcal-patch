@@ -19,9 +19,9 @@
  *
  * What gets called:
  *   - include_once 'includes/translate.php';
- *   - require_once 'includes/classes/WebCalendar.class';
- *   - require_once 'includes/classes/Event.class';
- *   - require_once 'includes/classes/RptEvent.class';
+ *   - require_once 'includes/classes/WebCalendar.class.php';
+ *   - require_once 'includes/classes/Event.class.php';
+ *   - require_once 'includes/classes/RptEvent.class.php';
  *   - include_once 'includes/assert.php';
  *   - include_once 'includes/config.php';
  *   - include_once 'includes/dbi4php.php';
@@ -47,9 +47,9 @@ if ( empty ( $_SERVER['PHP_SELF'] ) ||
   die ( 'You cannot access this file directly!' );
 
 include_once 'includes/translate.php';
-require_once 'includes/classes/WebCalendar.class';
-require_once 'includes/classes/Event.class';
-require_once 'includes/classes/RptEvent.class';
+require_once 'includes/classes/WebCalendar.class.php';
+require_once 'includes/classes/Event.class.php';
+require_once 'includes/classes/RptEvent.class.php';
 
 $WebCalendar =new WebCalendar ( __FILE__ );
 

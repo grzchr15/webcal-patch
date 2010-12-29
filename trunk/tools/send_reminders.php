@@ -56,10 +56,10 @@ $old_path = ini_get ( 'include_path' );
 $delim = ( strstr ( $old_path, ';' ) ? ';' : ':' );
 ini_set ( 'include_path', $old_path . $delim . __WC_INCLUDEDIR . $delim );
 
-require_once __WC_INCLUDEDIR . '/classes/WebCalendar.class';
-require_once __WC_INCLUDEDIR . '/classes/Event.class';
-require_once __WC_INCLUDEDIR . '/classes/RptEvent.class';
-require_once __WC_INCLUDEDIR . '/classes/WebCalMailer.class';
+require_once __WC_INCLUDEDIR . '/classes/WebCalendar.class.php';
+require_once __WC_INCLUDEDIR . '/classes/Event.class.php';
+require_once __WC_INCLUDEDIR . '/classes/RptEvent.class.php';
+require_once __WC_INCLUDEDIR . '/classes/WebCalMailer.class.php';
 
 $WebCalendar =new WebCalendar ( __FILE__ );
 
