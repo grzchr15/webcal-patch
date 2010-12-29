@@ -47,7 +47,7 @@ function do_debug ( $msg ) {
  */
 function activate_urls ( $text ) {
 //  return ereg_replace ( '[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]',
-  return preg_replace ( '/[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]/',
+  return preg_replace ( '/[[:alpha:]]+:\/\/[^<>[:space:]]+[[:alnum:]\/]/',
   '<a href="\\0">\\0</a>', $text );
 }
 
