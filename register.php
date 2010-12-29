@@ -1,6 +1,6 @@
 <?php
 /* $Id: register.php,v 1.36.2.4 2007/11/12 15:44:55 umcesrjones Exp $ */
-require_once 'includes/classes/WebCalendar.class';
+require_once 'includes/classes/WebCalendar.class.php';
 
 $WebCalendar =new WebCalendar ( __FILE__ );
 
@@ -27,7 +27,7 @@ load_user_preferences ( 'guest' );
 
 $WebCalendar->setLanguage ();
 
-require ( 'includes/classes/WebCalMailer.class' );
+require ( 'includes/classes/WebCalMailer.class.php' );
 $mail = &new WebCalMailer;
 
 $appStr = generate_application_name ();

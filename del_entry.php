@@ -1,7 +1,7 @@
 <?php
 /* $Id: del_entry.php,v 1.75.2.4 2008/02/12 01:59:48 cknudsen Exp $ */
 include_once 'includes/init.php';
-require ( 'includes/classes/WebCalMailer.class' );
+require ( 'includes/classes/WebCalMailer.class.php' );
 $mail = new WebCalMailer;
 
 $can_edit = $my_event = false;

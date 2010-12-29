@@ -1,7 +1,7 @@
 <?php
 /* $Id: reject_entry.php,v 1.62.2.4 2008/03/04 13:38:41 cknudsen Exp $ */
 include_once 'includes/init.php';
-require ( 'includes/classes/WebCalMailer.class' );
+require ( 'includes/classes/WebCalMailer.class.php' );
 $mail = new WebCalMailer;
 
 $error = '';

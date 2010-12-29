@@ -15,7 +15,7 @@
 include_once 'includes/init.php';
 include 'includes/xcal.php'; // only to display recurrance info
 // Load Doc classes for attachments and comments
-include 'includes/classes/Doc.class';
+include 'includes/classes/Doc.class.php';
 //TODO find 5.3 way of doing it start
  /* Are attachments enabled? */
   function attachmentsEnabled () {
@@ -31,9 +31,9 @@ include 'includes/classes/Doc.class';
     return ( ! empty ( $ALLOW_COMMENTS ) && $ALLOW_COMMENTS == 'Y' );
   }
 //TODO find 5.3 way of doing it start
-include 'includes/classes/DocList.class';
-include 'includes/classes/AttachmentList.class';
-include 'includes/classes/CommentList.class';
+include 'includes/classes/DocList.class.php';
+include 'includes/classes/AttachmentList.class.php';
+include 'includes/classes/CommentList.class.php';
 
 // Make sure this user is allowed to look at this calendar.
 $can_approve = $can_edit = $can_view = false;

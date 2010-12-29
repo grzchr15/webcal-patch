@@ -24,7 +24,7 @@
  * $USER_PUBLISH_ENABLED is not 'Y' (set in each user's Preferences).
  */
 
-require_once 'includes/classes/WebCalendar.class';
+require_once 'includes/classes/WebCalendar.class.php';
 
 $WebCalendar =new WebCalendar ( __FILE__ );
 

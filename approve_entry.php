@@ -1,7 +1,7 @@
 <?php
 /* $Id: approve_entry.php,v 1.50.2.4 2008/03/04 13:36:08 cknudsen Exp $ */
 include_once 'includes/init.php';
-require ( 'includes/classes/WebCalMailer.class' );
+require ( 'includes/classes/WebCalMailer.class.php' );
 
 $error = '';
 
