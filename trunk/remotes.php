@@ -7,10 +7,10 @@ $targetStr =
 'target="remotesiframe" onclick="showFrame( \'remotesiframe\' );">';
 
 if ( ! $NONUSER_PREFIX ) {
-  echo print_error_header () . translate ( 'NONUSER_PREFIX not set' ) . '
+	echo print_error_header () . translate ( 'NONUSER_PREFIX not set' ) . '
   </body>
 </html>';
-  exit;
+	exit;
 }
 $add = getValue ( 'add' );
 echo '
@@ -18,27 +18,27 @@ echo '
     <div id="tabscontent_remotes">';
 
 if ( empty ( $error ) ) {
-  echo '
+	echo '
       <a title="' . $newRemoteStr . '" href="edit_remotes.php?add=1"'
-   . $targetStr . $newRemoteStr . '</a><br />';
-  // Displaying Remote Calendars
-  $userlist = get_nonuser_cals ( $login, true );
-  if ( ! empty ( $userlist ) ) {
-    echo '
+      . $targetStr . $newRemoteStr . '</a><br />';
+      // Displaying Remote Calendars
+      $userlist = get_nonuser_cals ( $login, true );
+      if ( ! empty ( $userlist ) ) {
+      	echo '
       <ul>';
-    for ( $i = 0, $cnt = count ( $userlist ); $i < $cnt; $i++ ) {
-      echo '
+      	for ( $i = 0, $cnt = count ( $userlist ); $i < $cnt; $i++ ) {
+      		echo '
         <li><a title="' . $userlist[$i]['cal_fullname']
-       . '" href="edit_remotes.php?nid=' . $userlist[$i]['cal_login'] . '"'
-       . $targetStr . $userlist[$i]['cal_fullname'] . '</a></li>';
-    }
-    echo '
+      		. '" href="edit_remotes.php?nid=' . $userlist[$i]['cal_login'] . '"'
+      		. $targetStr . $userlist[$i]['cal_fullname'] . '</a></li>';
+      	}
+      	echo '
       </ul>';
-  }
+      }
 }
 
 echo '
       <iframe name="remotesiframe" id="remotesiframe" style="width: 90%; '
- . 'border: 0; height: 250px;"></iframe>
+      . 'border: 0; height: 250px;"></iframe>
     </div>';
-?>
+      ?>

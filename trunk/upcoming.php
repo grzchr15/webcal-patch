@@ -81,7 +81,7 @@ if ( empty ($upcoming_initialized)) {
 //from some other directory.
 $save_current_working_dir= getcwd ();
 chdir(dirname(__FILE__));
-
+require_once dirname(__FILE__).'/../FirePHP/fb.php';
 include_once 'includes/translate.php';
 require_once 'includes/classes/WebCalendar.class.php';
 require_once 'includes/classes/Event.class.php';

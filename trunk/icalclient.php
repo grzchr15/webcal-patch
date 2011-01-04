@@ -111,34 +111,34 @@ If running as CGI, the following instructions should set the PHP_AUTH_xxxx
 variables. This has only been tested with apache2, so far. If using php as CGI,
 you'll need to include this in your httpd.conf file or possibly in an .htaccess file.
 
-  <IfModule mod_rewrite.c>
-    RewriteEngine on
-    RewriteRule .* - [E=REMOTE_USER:%{HTTP:Authorization},L]
-  </IfModule>
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteRule .* - [E=REMOTE_USER:%{HTTP:Authorization},L]
+</IfModule>
 
 */
 if ( empty ( $_SERVER['PHP_AUTH_USER'] ) && ! empty ( $_ENV['REMOTE_USER'] ) ) {
-  list ( $_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'] ) =
-  explode ( ':', base64_decode ( substr ( $_ENV['REMOTE_USER'], 6 ) ) );
+	list ( $_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'] ) =
+	explode ( ':', base64_decode ( substr ( $_ENV['REMOTE_USER'], 6 ) ) );
 
-  $_SERVER['PHP_AUTH_USER'] = trim ( $_SERVER['PHP_AUTH_USER'] );
-  $_SERVER['PHP_AUTH_PW'] = trim ( $_SERVER['PHP_AUTH_PW'] );
+	$_SERVER['PHP_AUTH_USER'] = trim ( $_SERVER['PHP_AUTH_USER'] );
+	$_SERVER['PHP_AUTH_PW'] = trim ( $_SERVER['PHP_AUTH_PW'] );
 }
 
 unset ( $_ENV['REMOTE_USER'] );
 if ( empty ( $login ) ) {
-  if ( isset ( $_SERVER['PHP_AUTH_USER'] ) &&
-      user_valid_login ( $_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], true ) )
-    $login = $_SERVER['PHP_AUTH_USER'];
+	if ( isset ( $_SERVER['PHP_AUTH_USER'] ) &&
+	user_valid_login ( $_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], true ) )
+	$login = $_SERVER['PHP_AUTH_USER'];
 
-  if ( empty ( $login ) || $login != $_SERVER['PHP_AUTH_USER'] ) {
-    $_SERVER['PHP_AUTH_PW'] = $_SERVER['PHP_AUTH_USER'] = '';
-    unset ( $_SERVER['PHP_AUTH_USER'] );
-    unset ( $_SERVER['PHP_AUTH_PW'] );
-    header ( 'WWW-Authenticate: Basic realm="' . $appStr . '"' );
-    header ( 'HTTP/1.0 401 Unauthorized' );
-    exit;
-  }
+	if ( empty ( $login ) || $login != $_SERVER['PHP_AUTH_USER'] ) {
+		$_SERVER['PHP_AUTH_PW'] = $_SERVER['PHP_AUTH_USER'] = '';
+		unset ( $_SERVER['PHP_AUTH_USER'] );
+		unset ( $_SERVER['PHP_AUTH_PW'] );
+		header ( 'WWW-Authenticate: Basic realm="' . $appStr . '"' );
+		header ( 'HTTP/1.0 401 Unauthorized' );
+		exit;
+	}
 }
 
 load_global_settings ();
@@ -147,17 +147,17 @@ load_user_preferences ();
 $WebCalendar->setLanguage ();
 
 if ( empty ( $PUBLISH_ENABLED ) || $PUBLISH_ENABLED != 'Y' ) {
-  header ( 'Content-Type: text/plain' );
-  // Mozilla Calendar does not bother showing errors, so they won't see this
-  // error message anyhow... Not sure about Apple iCal or other clients.
-  etranslate ( 'Publishing Disabled (Admin)' );
-  exit;
+	header ( 'Content-Type: text/plain' );
+	// Mozilla Calendar does not bother showing errors, so they won't see this
+	// error message anyhow... Not sure about Apple iCal or other clients.
+	etranslate ( 'Publishing Disabled (Admin)' );
+	exit;
 }
 
 if ( empty ( $USER_PUBLISH_RW_ENABLED ) || $USER_PUBLISH_RW_ENABLED != 'Y' ) {
-  header ( 'Content-Type: text/plain' );
-  etranslate ( 'Publishing Disabled (User)' );
-  exit;
+	header ( 'Content-Type: text/plain' );
+	etranslate ( 'Publishing Disabled (User)' );
+	exit;
 }
 
 $prodid = 'Unnamed iCal client';
@@ -166,42 +166,42 @@ $prodid = 'Unnamed iCal client';
 user_load_variables ( $login, 'publish_' );
 
 function dump_globals () {
-  foreach ( $GLOBALS as $K => $V ) {
-    do_debug ( "GLOBALS[$K] => " . ( strlen ( $V ) < 70 ? $V : '(too long)' ) );
-  }
-  foreach ( $GLOBALS['HTTP_POST_VARS'] as $K => $V ) {
-    do_debug ( "GLOBALS[$_POST[$K]] => "
-       . ( strlen ( $V ) < 70 ? $V : '(too long)' ) );
-  }
+	foreach ( $GLOBALS as $K => $V ) {
+		do_debug ( "GLOBALS[$K] => " . ( strlen ( $V ) < 70 ? $V : '(too long)' ) );
+	}
+	foreach ( $GLOBALS['HTTP_POST_VARS'] as $K => $V ) {
+		do_debug ( "GLOBALS[$_POST[$K]] => "
+		. ( strlen ( $V ) < 70 ? $V : '(too long)' ) );
+	}
 }
 
 switch ( $_SERVER['REQUEST_METHOD'] ) {
-  case 'PUT':
-    // do_debug ( "Importing updated remote calendar" );
-    $calUser = $login;
-    $overwrite = true;
-    $type = 'icalclient';
+	case 'PUT':
+		// do_debug ( "Importing updated remote calendar" );
+		$calUser = $login;
+		$overwrite = true;
+		$type = 'icalclient';
 
-    $data = parse_ical ( '', $type );
-    import_data ( $data, $overwrite, $type );
-    break;
+		$data = parse_ical ( '', $type );
+		import_data ( $data, $overwrite, $type );
+		break;
 
-  case 'GET':
-    // do_debug ( "Exporting updated remote calendar" );
-    header ( 'Content-Type: text/calendar' );
-    header ( 'Content-Disposition: attachment; filename="' . $login . '.ics"' );
-    $use_all_dates = true;
-    echo export_ical ();
-    break;
+	case 'GET':
+		// do_debug ( "Exporting updated remote calendar" );
+		header ( 'Content-Type: text/calendar' );
+		header ( 'Content-Disposition: attachment; filename="' . $login . '.ics"' );
+		$use_all_dates = true;
+		echo export_ical ();
+		break;
 
-  case 'OPTIONS';
-    header ( 'Allow: GET, PUT, OPTIONS' );
-    break;
+	case 'OPTIONS';
+	header ( 'Allow: GET, PUT, OPTIONS' );
+	break;
 
-  default:
-    header ( 'Allow: GET, PUT, OPTIONS' );
-    header( 'HTTP/1.0 405 Method Not Allowed' );
-    break;
+	default:
+		header ( 'Allow: GET, PUT, OPTIONS' );
+		header( 'HTTP/1.0 405 Method Not Allowed' );
+		break;
 }
 
 ?>

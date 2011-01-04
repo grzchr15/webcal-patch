@@ -32,47 +32,47 @@ $page = getPostValue ( 'page' );
 
 // We're processing edit_remotes Calendar ID field.
 if ( $page == 'edit_remotes' || $page == 'edit_nonuser' ) {
-  $res = dbi_execute ( 'SELECT cal_login FROM webcal_nonuser_cals
+	$res = dbi_execute ( 'SELECT cal_login FROM webcal_nonuser_cals
     WHERE cal_login = ?', array ( $NONUSER_PREFIX . $name ) );
-  if ( $res ) {
-    $row = dbi_fetch_row ( $res );
-    // Presuming we are using '_NUC_' as $NONUSER_PREFIX.
-    if ( $name == substr ( $row[0], strlen ( $NONUSER_PREFIX ) ) )
-      // translate ( 'Duplicate Name' )
-      echo str_replace ( 'XXX', $name, translate ( 'Duplicate Name XXX', true ) );
-  }
+	if ( $res ) {
+		$row = dbi_fetch_row ( $res );
+		// Presuming we are using '_NUC_' as $NONUSER_PREFIX.
+		if ( $name == substr ( $row[0], strlen ( $NONUSER_PREFIX ) ) )
+		// translate ( 'Duplicate Name' )
+		echo str_replace ( 'XXX', $name, translate ( 'Duplicate Name XXX', true ) );
+	}
 } elseif ( $page == 'register' || $page == 'edit_user' ) {
-  // We're processing username field.
-  $res = dbi_execute ( 'SELECT cal_login FROM webcal_user WHERE cal_login = ?',
-    array ( $name ) );
-  if ( $res ) {
-    $row = dbi_fetch_row ( $res );
-    // translate ( 'Username already exists.' )
-    if ( $row[0] == $name )
-      echo str_replace ( 'XXX', $name,
-        translate ( 'Username XXX already exists.', true ) );
-  }
+	// We're processing username field.
+	$res = dbi_execute ( 'SELECT cal_login FROM webcal_user WHERE cal_login = ?',
+	array ( $name ) );
+	if ( $res ) {
+		$row = dbi_fetch_row ( $res );
+		// translate ( 'Username already exists.' )
+		if ( $row[0] == $name )
+		echo str_replace ( 'XXX', $name,
+		translate ( 'Username XXX already exists.', true ) );
+	}
 } elseif ( $page == 'email' ) {
-  // We're processing email field from any page.
-  $res = dbi_execute ( 'SELECT cal_email FROM webcal_user WHERE cal_email = ?',
-    array ( $name ) );
-  if ( $res ) {
-    $row = dbi_fetch_row ( $res );
-    // translate ( 'Email address already exists.' )
-    if ( $row[0] == $name )
-      echo str_replace ( 'XXX', $name,
-        translate ( 'Email address XXX already exists.', true ) );
-  }
+	// We're processing email field from any page.
+	$res = dbi_execute ( 'SELECT cal_email FROM webcal_user WHERE cal_email = ?',
+	array ( $name ) );
+	if ( $res ) {
+		$row = dbi_fetch_row ( $res );
+		// translate ( 'Email address already exists.' )
+		if ( $row[0] == $name )
+		echo str_replace ( 'XXX', $name,
+		translate ( 'Email address XXX already exists.', true ) );
+	}
 } elseif ( $page == 'minitask' ) {
-  $name = ( ! empty ( $name ) ? $name : 0 );
-  require_once 'includes/classes/Event.class.php';
-  require_once 'includes/classes/RptEvent.class.php';
-  include_once 'includes/gradient.php';
-  $column_array = array ( 'we.cal_priority', 'we.cal_name',
+	$name = ( ! empty ( $name ) ? $name : 0 );
+	require_once 'includes/classes/Event.class.php';
+	require_once 'includes/classes/RptEvent.class.php';
+	include_once 'includes/gradient.php';
+	$column_array = array ( 'we.cal_priority', 'we.cal_name',
     'we.cal_due_date', 'weu.cal_percent' );
-  $task_filter = ' ORDER BY ' . $column_array[$name % 4]
-   . ( $name > 3 ? ' ASC' : ' DESC' );
-  echo display_small_tasks ( $cat_id );
+	$task_filter = ' ORDER BY ' . $column_array[$name % 4]
+	. ( $name > 3 ? ' ASC' : ' DESC' );
+	echo display_small_tasks ( $cat_id );
 }
 
 ?>

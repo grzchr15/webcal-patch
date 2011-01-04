@@ -60,18 +60,18 @@ $out = '
 
 // If not an admin user, they cannot do this...
 if ( ! $is_admin )
-  $error = translate ( 'Not authorized (not admin).' );
+$error = translate ( 'Not authorized (not admin).' );
 
 // Some installs do not allow.
 if ( empty ( $error ) && ! $admin_can_add_user )
-  $error = translate ( 'Not authorized' );
+$error = translate ( 'Not authorized' );
 
 $addIn = getGetValue ( 'add' );
 $add = ( ! empty ( $addIn ) && $addIn == '1' );
 
 $deleteIn = getGetValue ( 'delete' );
 if ( empty ( $deleteIn ) )
-  $deleteIn = getGetValue ( 'del' );
+$deleteIn = getGetValue ( 'del' );
 
 $delete = ( ! empty ( $deleteIn ) && $deleteIn == '1' );
 $user_admin = getGetValue ( 'admin' );
@@ -84,33 +84,33 @@ $user_password = getGetValue ( 'password' );
 // This error should not happen in a properly written client,
 // so no need to translate it.
 if ( empty ( $error ) && empty ( $user_login ) )
-  $error = 'Username cannot be blank.';
+$error = 'Username cannot be blank.';
 
 // Check for invalid characters in the login.
 if ( empty ( $error ) && addslashes ( $user_login ) != $user_login )
-  $error = translate ( 'Invalid characters in login' );
+$error = translate ( 'Invalid characters in login' );
 
 // Check to see if username exists...
 if ( empty ( $error ) ) {
-  if ( user_load_variables ( $user_login, 'old_' ) ) {
-    // username does already exist...
-    if ( $add )
-      $error = str_replace ( 'XXX', ws_escape_xml ( $user_login ),
-        translate ( 'Username XXX already exists.' ) );
-  } else {
-    // username does not already exist...
-    if ( ! $add || $delete )
-      $error = str_replace ( 'XXX', ws_escape_xml ( $user_login ),
-        translate ( 'Username XXX does not exist.' ) );
-  }
+	if ( user_load_variables ( $user_login, 'old_' ) ) {
+		// username does already exist...
+		if ( $add )
+		$error = str_replace ( 'XXX', ws_escape_xml ( $user_login ),
+		translate ( 'Username XXX already exists.' ) );
+	} else {
+		// username does not already exist...
+		if ( ! $add || $delete )
+		$error = str_replace ( 'XXX', ws_escape_xml ( $user_login ),
+		translate ( 'Username XXX does not exist.' ) );
+	}
 }
 
 // If adding a user, make sure a password was provided
 if ( empty ( $error ) && $add && empty ( $user_password ) )
-  $error = translate ( 'You have not entered a password.' );
+$error = translate ( 'You have not entered a password.' );
 
 if ( empty ( $error ) && ! $add && ! $delete && empty ( $user_password ) )
-  $user_password = $old_password;
+$user_password = $old_password;
 
 // admin must be 'Y' or 'N' for call to user_add_user ()
 $user_admin = ( empty ( $user_admin ) || $user_admin != '1' ? 'N' : 'Y' );
@@ -118,36 +118,36 @@ $user_admin = ( empty ( $user_admin ) || $user_admin != '1' ? 'N' : 'Y' );
 // If user is editing themself, do not let them take away admin setting.
 // We don't want them to accidentally have no admin users left.
 if ( empty ( $error ) && $user_login == $login && $user_admin == 'N' )
-  $error = translate ( 'You cannot remove admin rights from yourself!' );
+$error = translate ( 'You cannot remove admin rights from yourself!' );
 
 if ( empty ( $error ) && $delete )
-  user_delete_user ( $user_login );
+user_delete_user ( $user_login );
 // We don't check return status... hope it worked.
 else
 if ( empty ( $error ) && $add ) {
 	//TODO add $user_enabled
-  if ( user_add_user ( $user_login, $user_password, $user_firstname,
-      $user_lastname, $user_email, $user_admin ) ) {
-    // success    :-)
-  } else
-    // error
-    $error = ( empty ( $error )
-      ? translate ( 'Unknown error saving user' )
-      :// In case there are any strange chars in a db error message.
-      ws_escape_xml ( $error ) );
+	if ( user_add_user ( $user_login, $user_password, $user_firstname,
+	$user_lastname, $user_email, $user_admin ) ) {
+		// success    :-)
+	} else
+	// error
+	$error = ( empty ( $error )
+	? translate ( 'Unknown error saving user' )
+	:// In case there are any strange chars in a db error message.
+	ws_escape_xml ( $error ) );
 } else
 if ( empty ( $error ) ) {
-  // update
+	// update
 	//TODO add $user_enabled
-  if ( user_update_user ( $user_login, $user_firstname,
-      $user_lastname, $user_email, $user_admin ) ) {
-    // success    :-)
-  } else
-    // error
-    $error = ( empty ( $error )
-      ? translate ( 'Unknown error saving user' )
-      :// In case there are any strange chars in a db error message.
-      ws_escape_xml ( $error ) );
+	if ( user_update_user ( $user_login, $user_firstname,
+	$user_lastname, $user_email, $user_admin ) ) {
+		// success    :-)
+	} else
+	// error
+	$error = ( empty ( $error )
+	? translate ( 'Unknown error saving user' )
+	:// In case there are any strange chars in a db error message.
+	ws_escape_xml ( $error ) );
 }
 
 $out .= ( empty ( $error ) ? '
@@ -158,7 +158,7 @@ $out .= ( empty ( $error ) ? '
 
 // If web service debugging is on...
 if ( ! empty ( $WS_DEBUG ) && $WS_DEBUG )
-  ws_log_message ( $out );
+ws_log_message ( $out );
 
 // Send output now...
 echo $out;

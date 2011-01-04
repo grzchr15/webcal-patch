@@ -145,7 +145,157 @@ define ( 'EXTRA_DISPLAY_ALL', 511 );
  Make sure you add translations in the translations file for anything
  you need to translate to another language.
  Use tools/check_translation.pl to verify you have all your translations.
+ 	
+Land 	
+Region 	
+Postleitzahl	
+Ort	
+Straße
+Nummer
+Treffpunkt 	
+Musik	
+Eintrittspreis
+Auskunft 	
+Website 	
+Beilagen 	
+Eingetragen von 	
+
+
 */
 $site_extras = array (
-);
+   array (
+     "country",    // unique name of this extra field (used in db)
+     "country",        // how this field will be described to users
+     EXTRA_SELECTLIST,  // type of field
+                        // List of options (first will be default)
+     array ( 
+     	"Österreich", 
+       	"Deutschland", 
+     	"Italien", 
+     	"Kroatien",
+     	"Liechtenstein",
+     	"Polen",
+     	"Schweiz",
+     	"Slowakei",
+     	"Slowenien",
+     	"Ungarn", 
+        "Tschechien"
+             ),
+     0,                // 0=single  >1=multiple && also the maximum size
+                        // <select name="RoomLocation" multiple="multiple" size="12">
+     EXTRA_DISPLAY_ALL //Display in all places
+   ),
+   array (
+     "region",    // unique name of this extra field (used in db)
+     "region",        // how this field will be described to users
+     EXTRA_SELECTLIST,  // type of field
+                        // List of options (first will be default)
+     array ( 
+     	"",
+		"Burgenland",
+		"Kärtnen", 
+		"Niederösterreich",
+		"Oberösterreich",
+		"Salzburg",
+		"Steiermark", 
+		"Tirol",
+		"Vorarlberg",
+		"Wien",
+     	"Bayern",
+		"Baden Württemberg",
+     	"Südtirol" 
+      ),
+     0,                // 0=single  >1=multiple && also the maximum size
+                        // <select name="RoomLocation" multiple="multiple" size="12">
+     EXTRA_DISPLAY_ALL //Display in all places
+   ),
+   array (
+     "PLZ",       // unique name of this extra field (used in db)
+     "PLZ", // how this field will be described to users
+     EXTRA_TEXT,      // type of field
+     7,               // arg 1 (unused)
+     0,                // arg 2 (unused)
+     EXTRA_DISPLAY_ALL //Display in all places
+   ),
+   array (
+     "city",       // unique name of this extra field (used in db)
+     "city", // how this field will be described to users
+     EXTRA_TEXT,      // type of field
+     50,               // arg 1 (unused)
+     0,                // arg 2 (unused)
+     EXTRA_DISPLAY_ALL //Display in all places
+   ),   
+   array (
+     "street",       // unique name of this extra field (used in db)
+     "street", // how this field will be described to users
+     EXTRA_TEXT,      // type of field
+     60,               // arg 1 (unused)
+     0,                // arg 2 (unused)
+     EXTRA_DISPLAY_ALL //Display in all places
+   ),   
+   array (
+     "number",       // unique name of this extra field (used in db)
+     "number", // how this field will be described to users
+     EXTRA_TEXT,      // type of field
+     10,               // arg 1 (unused)
+     0,                // arg 2 (unused)
+     EXTRA_DISPLAY_ALL //Display in all places
+   ),   
+   array (
+     "meetingpoint",       // unique name of this extra field (used in db)
+     "meetingpoint", // how this field will be described to users
+     EXTRA_TEXT,      // type of field
+     80,               // arg 1 (unused)
+     0,                // arg 2 (unused)
+     EXTRA_DISPLAY_ALL //Display in all places
+   ),   
+   array (
+     "music",       // unique name of this extra field (used in db)
+     "music", // how this field will be described to users
+     EXTRA_TEXT,      // type of field
+     80,               // arg 1 (unused)
+     0,                // arg 2 (unused)
+     EXTRA_DISPLAY_ALL //Display in all places
+   ),   
+   array (
+     "price",       // unique name of this extra field (used in db)
+     "price", // how this field will be described to users
+     EXTRA_TEXT,      // type of field
+     30,               // arg 1 (unused)
+     0,                // arg 2 (unused)
+     EXTRA_DISPLAY_ALL //Display in all places
+   ),
+   array (
+     "information",       // unique name of this extra field (used in db)
+     "information", // how this field will be described to users
+     EXTRA_TEXT,      // type of field
+     60,               // arg 1 (unused)
+     0,                // arg 2 (unused)
+     EXTRA_DISPLAY_ALL //Display in all places
+   ),
+   array (
+     "enteredfor",       // unique name of this extra field (used in db)
+     "Eingetragen von", // how this field will be described to users
+     EXTRA_TEXT,      // type of field
+     60,               // arg 1 (unused)
+     0,                // arg 2 (unused)
+     EXTRA_DISPLAY_ALL //Display in all places
+   ),
+   array (
+     "longitude",       // unique name of this extra field (used in db)
+     "longitude", // how this field will be described to users
+     EXTRA_TEXT,      // type of field
+     30,               // arg 1 (unused)
+     0,                // arg 2 (unused)
+     EXTRA_DISPLAY_ALL //Display in all places
+   ),
+   array (
+     "latitude",       // unique name of this extra field (used in db)
+     "latitude", // how this field will be described to users
+     EXTRA_TEXT,      // type of field
+     30,               // arg 1 (unused)
+     0,                // arg 2 (unused)
+     EXTRA_DISPLAY_ALL //Display in all places
+   ),   
+ );
 ?>

@@ -10,9 +10,9 @@ include_once 'includes/init.php';
 include_once 'includes/xcal.php';
 
 if ( empty ( $login ) || $login == '__public__' ) {
-  // do not allow public access
-  do_redirect ( empty ( $STARTVIEW ) ? 'month.php' : "$STARTVIEW" );
-  exit;
+	// do not allow public access
+	do_redirect ( empty ( $STARTVIEW ) ? 'month.php' : "$STARTVIEW" );
+	exit;
 }
 
 load_user_categories ();
@@ -31,28 +31,28 @@ echo '
       <table>
         <tr>
           <td><label for="exformat">' . translate ( 'Export format' )
- . ':</label></td>
+. ':</label></td>
           <td>' . generate_export_select ( 'toggel_catfilter' ) . '
           </td>
         </tr>';
 
 if ( is_array ( $categories ) ) {
-  echo '
+	echo '
         <tr id="catfilter">
           <td><label for="cat_filter">' . translate ( 'Categories' )
-   . ':</label></td>
+	. ':</label></td>
           <td>
             <select name="cat_filter" id="cat_filter">
               <option value=""' . $selected . '>' . translate ( 'All' )
-   . '</option>';
+	. '</option>';
 
-  foreach ( $categories as $K => $V ) {
-    if ( $K > 0 )
-      echo '
+	foreach ( $categories as $K => $V ) {
+		if ( $K > 0 )
+		echo '
               <option value="' . $K . '">' . $V['cat_name'] . '</option>';
-  }
+	}
 
-  echo '
+	echo '
             </select>
           </td>
         </tr>';
@@ -64,28 +64,28 @@ echo ( ! empty ( $LAYERS_STATUS ) && $LAYERS_STATUS == 'Y' ? '
           <td>&nbsp;</td>
           <td>
             <input type="checkbox" name="include_layers" id="include_layers" '
-   . 'value="y" />
+            . 'value="y" />
             <label for="include_layers">' . translate ( 'Include all layers' )
-   . '</label>
+            . '</label>
           </td>
         </tr>'
-  : '' ) . '
+        : '' ) . '
         <tr>
           <td>&nbsp;</td>
           <td>
             <input type="checkbox" name="include_deleted" id="include_deleted" '
- . 'value="y" />
+            . 'value="y" />
             <label for="include_deleted">'
- . translate ( 'Include deleted entries' ) . '</label>
+            . translate ( 'Include deleted entries' ) . '</label>
           </td>
         </tr>
         <tr>
           <td>&nbsp;</td>
           <td>
             <input type="checkbox" name="use_all_dates" id="exportall" '
- . 'value="y" onclick="toggle_datefields( \'dateArea\', this );" />
+            . 'value="y" onclick="toggle_datefields( \'dateArea\', this );" />
             <label for="exportall">' . translate ( 'Export all dates' )
- . '</label>
+            . '</label>
           </td>
         </tr>
         <tr>
@@ -102,21 +102,21 @@ echo ( ! empty ( $LAYERS_STATUS ) && $LAYERS_STATUS == 'Y' ? '
               <tr>
                 <td><label>' . translate ( 'Modified since' ) . ':</label></td>
                 <td>' . date_selection ( 'mod', mktime ( 0, 0, 0,
-                  $datem, date ( 'd' ) - 7, $dateY ) ) . '</td>
+            $datem, date ( 'd' ) - 7, $dateY ) ) . '</td>
               </tr>
             </table>
           </td>
         </tr>
         <tr>
           <td colspan="2"><input type="submit" value="'
- . translate ( 'Export' ) . '" /></td>
+          . translate ( 'Export' ) . '" /></td>
         </tr>
       </table>
     </form>
     ';
 
-ob_end_flush ();
+          ob_end_flush ();
 
-echo print_trailer ();
+          echo print_trailer ();
 
-?>
+          ?>

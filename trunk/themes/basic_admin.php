@@ -18,7 +18,7 @@ $webcal_theme = array (
   'DISPLAY_TASKS'         => 'N',
   'DISPLAY_TASKS_IN_GRID' => 'N',
   'DISPLAY_WEEKENDS'      => 'N',
-  );
+);
 
 include 'theme_inc.php';
 

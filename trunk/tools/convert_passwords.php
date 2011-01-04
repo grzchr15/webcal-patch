@@ -16,7 +16,7 @@
 /********************************************************************/
 
 define ( '__WC_BASEDIR', '..' ); // Points to the base WebCalendar directory
-                          // relative to current working directory.
+// relative to current working directory.
 define ( '__WC_INCLUDEDIR', '../includes' );
 
 require_once  __WC_INCLUDEDIR . '/classes/WebCalendar.class.php';
@@ -31,8 +31,8 @@ $WebCalendar->initializeSecondPhase();
 
 $c = dbi_connect ( $db_host, $db_login, $db_password, $db_database );
 if ( ! $c ) {
-  echo "Error connecting to database: " . dbi_error ();
-  exit;
+	echo "Error connecting to database: " . dbi_error ();
+	exit;
 }
 
 // First, look at the passwords. If we find and md5 hash in there,
@@ -42,38 +42,38 @@ $sql = "SELECT cal_passwd FROM webcal_user";
 $res = dbi_execute ( $sql );
 $doneBefore = false;
 if ( $res ) {
-  if ( $row = dbi_fetch_row ( $res ) ) {
-    if ( strlen ( $row[0] ) > 30 )
-      $doneBefore = true;
-  }
-  dbi_free_result ( $res );
+	if ( $row = dbi_fetch_row ( $res ) ) {
+		if ( strlen ( $row[0] ) > 30 )
+		$doneBefore = true;
+	}
+	dbi_free_result ( $res );
 } else {
-  echo "Database error: " . dbi_error ();
-  exit;
+	echo "Database error: " . dbi_error ();
+	exit;
 }
 
 if ( $doneBefore ) {
-  echo "Passwords were already converted to md5!\n<br />\n";
-  exit;
+	echo "Passwords were already converted to md5!\n<br />\n";
+	exit;
 }
 
 // See if webcal_user.cal_passwd will allow 32 characters
 $sql = "DESC webcal_user";
 $res = dbi_execute ( $sql );
 while ( $row = dbi_fetch_row ( $res ) ) {
-  if ($row[Field] == 'cal_passwd') {
-    preg_match ( "/([0-9]+)/", $row[Type], $match );
-    if ($match[1] < 32) {
-      $sql = "ALTER TABLE webcal_user MODIFY cal_passwd VARCHAR(32) NULL";
-      // Use the following on older MySQL versions
-      //$sql = "ALTER TABLE webcal_user CHANGE cal_passwd cal_passwd VARCHAR(32) NULL";
-      $res = dbi_execute ( $sql );
-      if ($res) {
-        echo "Table webcal_user altered to allow 32 character passwords.\n" .
+	if ($row[Field] == 'cal_passwd') {
+		preg_match ( "/([0-9]+)/", $row[Type], $match );
+		if ($match[1] < 32) {
+			$sql = "ALTER TABLE webcal_user MODIFY cal_passwd VARCHAR(32) NULL";
+			// Use the following on older MySQL versions
+			//$sql = "ALTER TABLE webcal_user CHANGE cal_passwd cal_passwd VARCHAR(32) NULL";
+			$res = dbi_execute ( $sql );
+			if ($res) {
+				echo "Table webcal_user altered to allow 32 character passwords.\n" .
           "<br />Converting passwords...\n<br /><br />\n";
-      }
-    }
-  }
+			}
+		}
+	}
 }
 dbi_free_result ( $res );
 
@@ -81,15 +81,15 @@ dbi_free_result ( $res );
 $sql = "SELECT cal_login, cal_passwd FROM webcal_user";
 $res = dbi_execute ( $sql );
 if ( $res ) {
-  while ( $row = dbi_fetch_row ( $res ) ) {
-    $sql2 = "UPDATE webcal_user SET cal_passwd = ? WHERE cal_login = ?";
-    $res2 = dbi_execute ( $sql2, array ( md5 ( $row[1] ), $row[0] ) );
-    if ($res2)
-      echo "Password updated for: ".$row[0]."<br />\n";
-  }
-  dbi_free_result ( $res );
-  echo "Finished converting passwords\n<br />\n";
-  echo "<br /><br />\n<h1>DO NOT Run this script again!!!</h1>\n<br />\n";
-  echo '<h1>Delete this script if it ran successfully!!!</h1>';
+	while ( $row = dbi_fetch_row ( $res ) ) {
+		$sql2 = "UPDATE webcal_user SET cal_passwd = ? WHERE cal_login = ?";
+		$res2 = dbi_execute ( $sql2, array ( md5 ( $row[1] ), $row[0] ) );
+		if ($res2)
+		echo "Password updated for: ".$row[0]."<br />\n";
+	}
+	dbi_free_result ( $res );
+	echo "Finished converting passwords\n<br />\n";
+	echo "<br /><br />\n<h1>DO NOT Run this script again!!!</h1>\n<br />\n";
+	echo '<h1>Delete this script if it ran successfully!!!</h1>';
 }
 ?>

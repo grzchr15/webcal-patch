@@ -23,7 +23,7 @@ else 				$uenabled="N";
 
 $error = '';
 if ( ! $is_admin )
-  $user = $login;
+$user = $login;
 
 $deleteStr = translate ( 'Deleting users not supported.' );
 $notIdenticalStr = translate ( 'The passwords were not identical.' );
@@ -32,94 +32,94 @@ $blankUserStr = translate ( 'Username cannot be blank.' );
 
 // Don't let them edit users if they'e not authorized.
 if ( empty ( $user ) ) {
-  // Asking to create a new user. Must be admin...
-  if ( ! $is_admin && ! access_can_access_function ( ACCESS_USER_MANAGEMENT ) )
-    send_to_preferred_view ();
+	// Asking to create a new user. Must be admin...
+	if ( ! $is_admin && ! access_can_access_function ( ACCESS_USER_MANAGEMENT ) )
+	send_to_preferred_view ();
 
-  if ( ! $admin_can_add_user ) {
-    // If adding users is not allowed...
-    send_to_preferred_view ();
-    exit;
-  }
+	if ( ! $admin_can_add_user ) {
+		// If adding users is not allowed...
+		send_to_preferred_view ();
+		exit;
+	}
 } else {
-  // User is editing their account info.
-  if ( ! access_can_access_function ( ACCESS_ACCOUNT_INFO ) )
-    send_to_preferred_view ();
+	// User is editing their account info.
+	if ( ! access_can_access_function ( ACCESS_ACCOUNT_INFO ) )
+	send_to_preferred_view ();
 }
 
 // Handle delete.
 if ( ! empty ( $delete ) && $formtype == 'edituser' ) {
-  if ( access_can_access_function ( ACCESS_USER_MANAGEMENT ) ) {
-    if ( $admin_can_delete_user ) {
-      user_delete_user ( $user ); // Will also delete user's events.
-      activity_log ( 0, $login, $user, LOG_USER_DELETE, '' );
-    } else
-      $error = $deleteStr;
-  } else
-    $error = print_not_auth (15);
+	if ( access_can_access_function ( ACCESS_USER_MANAGEMENT ) ) {
+		if ( $admin_can_delete_user ) {
+			user_delete_user ( $user ); // Will also delete user's events.
+			activity_log ( 0, $login, $user, LOG_USER_DELETE, '' );
+		} else
+		$error = $deleteStr;
+	} else
+	$error = print_not_auth (15);
 } else {
-  // Handle update of password.
-  if ( $formtype == 'setpassword' && strlen ( $user ) ) {
-    if ( ! access_can_access_function ( ACCESS_USER_MANAGEMENT ) && !
-        access_can_access_function ( ACCESS_ACCOUNT_INFO ) )
-      $error = print_not_auth (17);
-    else
-    if ( $upassword1 != $upassword2 )
-      $error = $notIdenticalStr;
-    else {
-      if ( strlen ( $upassword1 ) ) {
-        if ( $user_can_update_password ) {
-          user_update_user_password ( $user, $upassword1 );
-          activity_log ( 0, $login, $user, LOG_USER_UPDATE,
-            translate ( 'Set Password' ) );
-        } else
-          $error = print_not_auth (18);
-      } else
-        $error = $noPasswordStr;
-    }
-  } else {
-    // Handle update of user info.
-    if ( $formtype == 'edituser' ) {
-      if ( ! empty ( $add ) && $is_admin ) {
-        if ( $upassword1 != $upassword2 )
-          $error = $notIdenticalStr;
-        else {
-          if ( addslashes ( $user ) != $user )
-            // This error should get caught before here anyhow,
-            // so no need to translate this. This is just in case. :-)
-            $error = 'Invalid characters in login.';
-          else {
-            if ( empty ( $user ) )
-              // Username cannot be blank. This is currently the only place
-              // that calls addUser that is located in $user_inc.
-              $error = $blankUserStr;
-            else {
-              user_add_user ( $user, $upassword1, $ufirstname, $ulastname,
-                $uemail, $uis_admin, $uenabled );
-              activity_log ( 0, $login, $user, LOG_USER_ADD,
+	// Handle update of password.
+	if ( $formtype == 'setpassword' && strlen ( $user ) ) {
+		if ( ! access_can_access_function ( ACCESS_USER_MANAGEMENT ) && !
+		access_can_access_function ( ACCESS_ACCOUNT_INFO ) )
+		$error = print_not_auth (17);
+		else
+		if ( $upassword1 != $upassword2 )
+		$error = $notIdenticalStr;
+		else {
+			if ( strlen ( $upassword1 ) ) {
+				if ( $user_can_update_password ) {
+					user_update_user_password ( $user, $upassword1 );
+					activity_log ( 0, $login, $user, LOG_USER_UPDATE,
+					translate ( 'Set Password' ) );
+				} else
+				$error = print_not_auth (18);
+			} else
+			$error = $noPasswordStr;
+		}
+	} else {
+		// Handle update of user info.
+		if ( $formtype == 'edituser' ) {
+			if ( ! empty ( $add ) && $is_admin ) {
+				if ( $upassword1 != $upassword2 )
+				$error = $notIdenticalStr;
+				else {
+					if ( addslashes ( $user ) != $user )
+					// This error should get caught before here anyhow,
+					// so no need to translate this. This is just in case. :-)
+					$error = 'Invalid characters in login.';
+					else {
+						if ( empty ( $user ) )
+						// Username cannot be blank. This is currently the only place
+						// that calls addUser that is located in $user_inc.
+						$error = $blankUserStr;
+						else {
+							user_add_user ( $user, $upassword1, $ufirstname, $ulastname,
+							$uemail, $uis_admin, $uenabled );
+							activity_log ( 0, $login, $user, LOG_USER_ADD,
                 "$ufirstname $ulastname"
-                 . ( empty ( $uemail ) ? '' : " <$uemail>" ) );
-            }
-          }
-        }
-      } else {
-        if ( ! empty ( $add ) && !
-            access_can_access_function ( ACCESS_USER_MANAGEMENT ) )
-          $error = print_not_auth (15);
-        else {
-          // Don't allow a user to change themself to an admin by setting
-          // uis_admin in the URL by hand. They must be admin beforehand.
-          if ( ! $is_admin )
-            $uis_admin = 'N';
+							. ( empty ( $uemail ) ? '' : " <$uemail>" ) );
+						}
+					}
+				}
+			} else {
+				if ( ! empty ( $add ) && !
+				access_can_access_function ( ACCESS_USER_MANAGEMENT ) )
+				$error = print_not_auth (15);
+				else {
+					// Don't allow a user to change themself to an admin by setting
+					// uis_admin in the URL by hand. They must be admin beforehand.
+					if ( ! $is_admin )
+					$uis_admin = 'N';
 
-          user_update_user ( $user, $ufirstname, 
-					  $ulastname, $uemail, $uis_admin, $uenabled );
-          activity_log ( 0, $login, $user, LOG_USER_UPDATE,
+					user_update_user ( $user, $ufirstname,
+					$ulastname, $uemail, $uis_admin, $uenabled );
+					activity_log ( 0, $login, $user, LOG_USER_UPDATE,
             "$ufirstname $ulastname" . ( empty ( $uemail ) ? '' : " <$uemail>" ) );
-        }
-      }
-    }
-  }
+				}
+			}
+		}
+	}
 }
 
 echo error_check ( 'users.php', false );

@@ -12,15 +12,15 @@ $aboutStr = translate ( 'About WebCalendar' );
 echo '
       <li><a title="' . $aboutStr . '" href="" onclick="javascript:openAbout()">'
       . $aboutStr . '</a></li>';
-foreach ( $help_list as $key => $val ) {
-  $page++;
-  $transStr = translate ( $key );
-  echo '
+      foreach ( $help_list as $key => $val ) {
+      	$page++;
+      	$transStr = translate ( $key );
+      	echo '
       <li><a title="' . $transStr . '" href="' . $val . '?thispage=' . $page
-   . '">' . $transStr . '</a></li>';
-}
-echo '
+      	. '">' . $transStr . '</a></li>';
+      }
+      echo '
     </ul>
     ' . print_trailer ( false, true, true );
 
-?>
+      ?>

@@ -12,23 +12,23 @@ echo $helpListStr . '
     <h3>' . translate ( 'Palm Desktop' ) . '</h3>
     <p>' .
 translate ( 'This form will allow you to import entries from the Palm Desktop Datebook.' )
- . '<br />' .
+. '<br />' .
 translate ( 'It should be located in your Palm directory in <tt>datebook/datebook.dat</tt> in a subdirectory named by your username.' )
- . '</p>
+. '</p>
     <p>' . translate ( 'The following entries will not be imported' ) . ':</p>
     <ul>
       <li>' . translate ( 'Entries older than the current date' ) . '</li>
       <li>' .
 translate ( 'Entries created in the Palm Desktop...' )
- . '</li>
+. '</li>
     </ul>
     <p>' .
 translate ( 'Anything imported from Palm will be overwritten during the next import (unless the event date has passed).' )
- . translate ( 'Therefore, updates should be made in the Palm Desktop.' )
- . '</p>
+. translate ( 'Therefore, updates should be made in the Palm Desktop.' )
+. '</p>
     <h3>' . translate ( 'vCal' ) . '</h3>
     <p>' . translate ( 'This form will import vCalendar (.vcs) 1.0 events' )
- . '.</p>
+. '.</p>
     <p>' . translate ( 'The following formats have been tested' ) . ':</p>
     <ul>
       <li>Palm Desktop 4</li>
@@ -37,13 +37,13 @@ translate ( 'Anything imported from Palm will be overwritten during the next imp
     </ul>
     <h3>iCalendar</h3>
     <p>' . translate ( 'This form will import iCalendar (.ics) events' ) . '. '
- . translate ( 'Enabling' ) . ' <b>' . translate ( 'Overwrite Prior Import' )
- . '</b>, ' .
-translate ( 'will cause events imported previously, that used the same UID as an event from the new import file, to be marked as deleted. This should allow an updated iCalendar file to be imported without creating duplicates.' )
- . '</p>';
+    . translate ( 'Enabling' ) . ' <b>' . translate ( 'Overwrite Prior Import' )
+    . '</b>, ' .
+    translate ( 'will cause events imported previously, that used the same UID as an event from the new import file, to be marked as deleted. This should allow an updated iCalendar file to be imported without creating duplicates.' )
+    . '</p>';
 
-ob_end_flush ();
+    ob_end_flush ();
 
-echo print_trailer ( false, true, true );
+    echo print_trailer ( false, true, true );
 
-?>
+    ?>

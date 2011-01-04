@@ -33,9 +33,9 @@ $MINICALFONT = '11px';
 $MINICALWIDTH = '160px';
 
 if ( empty ( $PUBLISH_ENABLED ) || $PUBLISH_ENABLED != 'Y' ) {
-  header ( 'Content-Type: text/plain' );
-  echo print_not_auth (20);
-  exit;
+	header ( 'Content-Type: text/plain' );
+	echo print_not_auth (20);
+	exit;
 }
 
 /* Configurable settings for this file. You may change the settings below to
@@ -70,15 +70,15 @@ $cat_id = ( empty ( $cat_id ) ? '' : $cat_id );
 // Set for use elsewhere as a global.
 $login = $user;
 
-//Error code 
+//Error code
 if ( $public_must_be_enabled && $PUBLIC_ACCESS != 'Y' )
-  $error = print_not_auth (21);
+$error = print_not_auth (21);
 
 if ( $allow_user_override ) {
-  $u = getValue ( 'user', '[A-Za-z0-9_\.=@,\-]+', true );
-  if ( ! empty ( $u ) )
-    $login = $user = $u;
-  // We also set $login since some functions assume that it is set.
+	$u = getValue ( 'user', '[A-Za-z0-9_\.=@,\-]+', true );
+	if ( ! empty ( $u ) )
+	$login = $user = $u;
+	// We also set $login since some functions assume that it is set.
 }
 
 load_user_preferences ();
@@ -86,14 +86,14 @@ load_user_preferences ();
 user_load_variables ( $login, 'minical_' );
 
 if ( $user != '__public__' && ! nonuser_load_variables ( $login, 'minica_' ) )
-  die_miserable_death (
-    // translate ( 'No such nonuser calendar' )
-    str_replace ( 'XXX', $login,
-      translate ( 'No such nonuser calendar XXX.' ) ) );
+die_miserable_death (
+// translate ( 'No such nonuser calendar' )
+str_replace ( 'XXX', $login,
+translate ( 'No such nonuser calendar XXX.' ) ) );
 
 if ( $user != '__public__' &&
-  ( empty ( $minical_is_public ) || $minical_is_public != 'Y' ) )
-  die_miserable_death ( translate ( 'This Calendar is not Public.' ) );
+( empty ( $minical_is_public ) || $minical_is_public != 'Y' ) )
+die_miserable_death ( translate ( 'This Calendar is not Public.' ) );
 
 $next = mktime ( 0, 0, 0, $thismonth + 1, 1, $thisyear );
 $nextmonth = date ( 'm', $next );
@@ -122,5 +122,5 @@ echo display_small_month ( $thismonth, $thisyear, true, false );
 $login = '';
 
 ?>
-  </body>
+</body>
 </html>

@@ -55,7 +55,7 @@ $datestyles = array ( 'LANGUAGE_DEFINED', $langDefStr,
   '__yy__-__mm__-__dd__', '00-12-31',
   '__yyyy__/__mm__/__dd__', '2000/12/31',
   '__yyyy__-__mm__-__dd__', '2000-12-31',
-  );
+);
 // .
 // Month Year format
 $datestyles_my = array ( 'LANGUAGE_DEFINED', $langDefStr,
@@ -74,7 +74,7 @@ $datestyles_my = array ( 'LANGUAGE_DEFINED', $langDefStr,
   '__yy__-__mm__', '00-12',
   '__yyyy__/__mm__', '2000/12',
   '__yyyy__-__mm__', '2000-12',
-  );
+);
 // .
 // Month Day format
 $datestyles_md = array ( 'LANGUAGE_DEFINED', $langDefStr,
@@ -89,7 +89,7 @@ $datestyles_md = array ( 'LANGUAGE_DEFINED', $langDefStr,
   '__dd__-__mm__', '31-12',
   '__mm__/__dd__', '12/31',
   '__mm__-__dd__', '12-31',
-  );
+);
 // .
 // Task Date format
 $datestyles_task = array ( 'LANGUAGE_DEFINED', $langDefStr,
@@ -104,6 +104,6 @@ $datestyles_task = array ( 'LANGUAGE_DEFINED', $langDefStr,
   '__dd__-__mm__-__yy__', '31-12-00',
   '__mm__/__dd__/__yy__', '12/31/00',
   '__mm__/__dd__/__yyyy__', '12/31/2000',
-  );
+);
 
 ?>

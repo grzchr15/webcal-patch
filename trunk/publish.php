@@ -47,37 +47,37 @@ $WebCalendar->initializeSecondPhase ();
 // Calculate username.
 // If using http_auth, use those credentials.
 if ( $use_http_auth && empty ( $user ) )
-  $user = $login;
+$user = $login;
 
 if ( empty ( $user ) ) {
-  $arr = explode ( '/', $PHP_SELF );
-  $user = $arr[count ( $arr )-1];
-  # remove any trailing ".ics" in user name
-  $user = preg_replace ( "/\.[iI][cC][sS]$/", '', $user );
+	$arr = explode ( '/', $PHP_SELF );
+	$user = $arr[count ( $arr )-1];
+	# remove any trailing ".ics" in user name
+	$user = preg_replace ( "/\.[iI][cC][sS]$/", '', $user );
 }
 
 if ( $user == 'publish.php' )
-  $user = '';
+$user = '';
 
 if ( $user == 'public' )
-  $user = '__public__';
+$user = '__public__';
 
 load_global_settings ();
 
 $WebCalendar->setLanguage ();
 
 if ( empty ( $PUBLISH_ENABLED ) || $PUBLISH_ENABLED != 'Y' ) {
-  header ( 'Content-Type: text/plain' );
-  echo print_not_auth (20);
-  exit;
+	header ( 'Content-Type: text/plain' );
+	echo print_not_auth (20);
+	exit;
 }
 
 $errorStr = translate ( 'Error' );
 $nouser = translate ( 'No user specified' );
 // Make sure they specified a username.
 if ( empty ( $user ) ) {
-  echo send_doctype ( $errorStr );
-  echo <<<EOT
+	echo send_doctype ( $errorStr );
+	echo <<<EOT
   </head>
   <body>
     <h2>{$errorStr}</h2>
@@ -85,7 +85,7 @@ if ( empty ( $user ) ) {
   </body>
 </html>
 EOT;
-  exit;
+    exit;
 }
 
 // Load user preferences (to get the USER_PUBLISH_ENABLED and
@@ -94,9 +94,9 @@ $login = $user;
 load_user_preferences ();
 
 if ( empty ( $USER_PUBLISH_ENABLED ) || $USER_PUBLISH_ENABLED != 'Y' ) {
-  header ( 'Content-Type: text/plain' );
-  echo print_not_auth (25);
-  exit;
+	header ( 'Content-Type: text/plain' );
+	echo print_not_auth (25);
+	exit;
 }
 
 // Load user name, etc.

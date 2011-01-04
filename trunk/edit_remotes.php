@@ -13,7 +13,7 @@
  * Security
  * $REMOTES_ENABLED must be enabled under System Settings and if
  * if UAC is enabled, then the user must be allowed to ACCESS_IMPORT.
-*/
+ */
 include_once 'includes/init.php';
 print_header ( array ( 'js/edit_remotes.php/false', 'js/visible.php' ),
   '', '', true );
@@ -21,65 +21,65 @@ print_header ( array ( 'js/edit_remotes.php/false', 'js/visible.php' ),
 $error = '';
 
 if ( ! $NONUSER_PREFIX )
-  $error = translate ( 'NONUSER_PREFIX not set' );
+$error = translate ( 'NONUSER_PREFIX not set' );
 
 if ( $REMOTES_ENABLED != 'Y' || ( access_is_enabled () && !
-      access_can_access_function ( ACCESS_IMPORT ) ) )
-  $error = print_not_auth (11);
+access_can_access_function ( ACCESS_IMPORT ) ) )
+$error = print_not_auth (11);
 
 if ( $error ) {
-  echo print_error ( $error ) . '
+	echo print_error ( $error ) . '
   </body>
 </html>';
-  exit;
+	exit;
 }
 $add = getValue ( 'add' );
 $nid = getValue ( 'nid' );
 
 // Adding/Editing remote calendar.
 if ( ( $add == '1' || ! empty ( $nid ) ) && empty ( $error ) ) {
-  $userlist = get_nonuser_cals ( $login, true );
+	$userlist = get_nonuser_cals ( $login, true );
 
-  if ( empty ( $nid ) ) {
-    $id_display = '<input type="text" name="nid" id="nid" size="20" '
-     . 'maxlength="20" onchange="check_name();" /> '
-     . translate ( 'word characters only' );
-    $lableStr = translate ( 'Add Remote Calendar' );
-  } else {
-    $nid = clean_html ( $nid );
-    nonuser_load_variables ( $nid, 'remotestemp_' );
+	if ( empty ( $nid ) ) {
+		$id_display = '<input type="text" name="nid" id="nid" size="20" '
+		. 'maxlength="20" onchange="check_name();" /> '
+		. translate ( 'word characters only' );
+		$lableStr = translate ( 'Add Remote Calendar' );
+	} else {
+		$nid = clean_html ( $nid );
+		nonuser_load_variables ( $nid, 'remotestemp_' );
 
-    $button = translate ( 'Save' );
+		$button = translate ( 'Save' );
 		$buttonAction = 'Save';
-    $id_display = $nid . ' <input type="hidden" name="nid" id="nid" value="'
-     . $nid . '" />';
-    $lableStr = translate ( 'Edit Remote Calendar' );
-    $remotestemp_login = substr ( $remotestemp_login, strlen ( $NONUSER_PREFIX ) );
-  }
+		$id_display = $nid . ' <input type="hidden" name="nid" id="nid" value="'
+		. $nid . '" />';
+		$lableStr = translate ( 'Edit Remote Calendar' );
+		$remotestemp_login = substr ( $remotestemp_login, strlen ( $NONUSER_PREFIX ) );
+	}
 
-  $button = translate ( 'Add' );
+	$button = translate ( 'Add' );
 	$buttonAction = 'Add';
-  $calIdStr = translate ( 'Calendar ID' );
-  $colorStr = translate ( 'Color' );
-  $confirmStr = str_replace ( 'XXX', translate ( 'entry' ),
-    translate ( 'Are you sure you want to delete this XXX?' ) );
-  $createLayerStr = translate ( 'Create Layer' );
-  $deleteStr = translate ( 'Delete' );
-  $firstNameStr = translate ( 'First Name' );
-  $lastNameStr = translate ( 'Last Name' );
-  $reloadStr = translate ( 'Reload' );
-  $requiredStr = translate ( 'Required to View Remote Calendar' );
-  $selectStr = translate ( 'Select' );
-  $urlStr = translate ( 'URL' );
+	$calIdStr = translate ( 'Calendar ID' );
+	$colorStr = translate ( 'Color' );
+	$confirmStr = str_replace ( 'XXX', translate ( 'entry' ),
+	translate ( 'Are you sure you want to delete this XXX?' ) );
+	$createLayerStr = translate ( 'Create Layer' );
+	$deleteStr = translate ( 'Delete' );
+	$firstNameStr = translate ( 'First Name' );
+	$lastNameStr = translate ( 'Last Name' );
+	$reloadStr = translate ( 'Reload' );
+	$requiredStr = translate ( 'Required to View Remote Calendar' );
+	$selectStr = translate ( 'Select' );
+	$urlStr = translate ( 'URL' );
 
-  $firstNameValue = ( empty ( $remotestemp_firstname )
-    ? '' : htmlspecialchars ( $remotestemp_firstname ) );
-  $lastNameValue = ( empty ( $remotestemp_lastname )
-    ? '' : htmlspecialchars ( $remotestemp_lastname ) );
-  $urlValue = ( empty ( $remotestemp_url )
-    ? '' : htmlspecialchars ( $remotestemp_url ) );
+	$firstNameValue = ( empty ( $remotestemp_firstname )
+	? '' : htmlspecialchars ( $remotestemp_firstname ) );
+	$lastNameValue = ( empty ( $remotestemp_lastname )
+	? '' : htmlspecialchars ( $remotestemp_lastname ) );
+	$urlValue = ( empty ( $remotestemp_url )
+	? '' : htmlspecialchars ( $remotestemp_url ) );
 
-  echo <<<EOT
+	echo <<<EOT
     <h2>{$lableStr}</h2>
     <form action="edit_remotes_handler.php" method="post" name="prefform"
       onsubmit="return valid_form( this );">
@@ -104,8 +104,8 @@ if ( ( $add == '1' || ! empty ( $nid ) ) && empty ( $error ) ) {
             maxlength="255" value="{$urlValue}" /></td>
         </tr>
 EOT;
-  if ( empty ( $nid ) ) {
-    echo <<<EOT
+	if ( empty ( $nid ) ) {
+		echo <<<EOT
         <tr>
           <td><label for="nlayer">{$createLayerStr}:</label></td>
           <td colspan="3">
@@ -117,24 +117,24 @@ EOT;
         <tr id="nlayercolor" style="visibility:hidden" >
           <td>
 EOT;
-    echo print_color_input_html ( 'layercolor', $colorStr, '#000000' ) . '
+		echo print_color_input_html ( 'layercolor', $colorStr, '#000000' ) . '
           </td>
         </tr>';
-  }
-  echo <<<EOT
+	}
+	echo <<<EOT
       </table>
       <input type="hidden" name="nadmin" id="nadmin" value="{$login}" />
       <input type="submit" name="{$buttonAction}" value="{$button}" />
 EOT;
 
-  if ( ! empty ( $nid ) )
-    echo <<<EOT
+	if ( ! empty ( $nid ) )
+	echo <<<EOT
       <input type="submit" name="delete" value="{$deleteStr}"
         onclick="return confirm( '{$confirmStr}' )" />
       <input type="submit" name="reload" value="{$reloadStr}" />
 EOT;
 
-  echo '
+	echo '
     </form>';
 }
 echo print_trailer ( false, true, true );

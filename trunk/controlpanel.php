@@ -55,27 +55,35 @@ echo '<?xml version="1.0" encoding="utf-8"?>
   <information>
     <title>' . translate ( 'Control Panel' ) . ': ' . htmlentities ( $appStr );
 
-?></title>
-    <vendor>k5n.us</vendor>
-    <homepage href="http://www.k5n.us"/>
-    <description>WebCalendar Control Panel</description>
-    <!-- <icon href="images/xxx.gif"/> -->
-  </information>
-  <security>
-  </security>
-  <resources>
-    <j2se version="1.4+"/>
-    <jar href="ws/webcalendar.jar"/>
-  </resources>
-  <application-desc main-class="us.k5n.webcalendar.ui.ControlPanel.Main"
-   width="600" height="500">
-    <argument>-url=<?php echo $SERVER_URL . '</argument>'
- . ( $use_http_auth
-  ? '
+?>
+</title>
+<vendor>
+k5n.us
+</vendor>
+<homepage href="http://www.k5n.us" />
+<description>
+WebCalendar Control Panel
+</description>
+<!-- <icon href="images/xxx.gif"/> -->
+</information>
+<security>
+</security>
+<resources>
+<j2se version="1.4+" />
+<jar href="ws/webcalendar.jar" />
+</resources>
+<application-desc
+	main-class="us.k5n.webcalendar.ui.ControlPanel.Main" width="600"
+	height="500">
+<argument>
+-url=
+<?php echo $SERVER_URL . '</argument>'
+. ( $use_http_auth
+? '
     <argument>-httpusername=' . $login . '</argument>'
-  : ( ! empty ( $login ) ? '
+    : ( ! empty ( $login ) ? '
     <argument>-user=' . $login . '</argument>' : '' ) )
 
-?>
-  </application-desc>
+    ?>
+</application-desc>
 </jnlp>

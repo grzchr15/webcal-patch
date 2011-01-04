@@ -3,7 +3,7 @@
 include_once 'includes/init.php';
 $color = getGetValue ( 'color' );
 if ( empty ( $color ) )
-  exit;
+exit;
 
 $addcustomStr = translate ( 'Add Custom' );
 $basicStr = translate ( 'Basic Colors' );
@@ -16,10 +16,10 @@ print_header ( array ( 'js/colors.php/true' ), '',
   'onload="fillhtml(); setInit();"', true, false, true );
 
 /*
-  HTML Color Editor v1.2 (c) 2000 by Sebastian Weber <webersebastian@yahoo.de>
-  Modified by Ray Jones for inclusion into WebCalendar.
-  NOTE: In-line CSS styles must remain in this file for proper operation
-*/
+ HTML Color Editor v1.2 (c) 2000 by Sebastian Weber <webersebastian@yahoo.de>
+ Modified by Ray Jones for inclusion into WebCalendar.
+ NOTE: In-line CSS styles must remain in this file for proper operation
+ */
 
 echo <<<EOT
     <form action="colors.php" name="colorpicker">

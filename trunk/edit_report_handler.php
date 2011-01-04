@@ -39,7 +39,13 @@ $error = ( empty ( $REPORTS_ENABLED ) || $REPORTS_ENABLED != 'Y'
   ? print_not_auth (12) : '' );
 $report_id = getValue ( 'report_id', '-?[0-9]+', true );
 $public = getPostValue ( 'public' );
+$is_global=getPostValue ( 'is_global' );
+$show_in_trailer=getPostValue ( 'show_in_trailer' );
+$include_empty=getPostValue ( 'include_empty' );
+$include_header=getPostValue ( 'include_header' );
+$allow_nav=getPostValue ( 'allow_nav' );
 $report_name = getPostValue ( 'report_name' );
+$report_type = getPostValue ( 'report_type' );
 $report_user = getPostValue ( 'report_user' );
 $time_range = getPostValue ( 'time_range' );
 $cat_id = getValue ( 'cat_id', '-?[0-9,\-]*', true );
@@ -54,7 +60,6 @@ if ( $single_user == 'Y' || $DISABLE_PARTICIPANTS_FIELD == 'Y' )
 
 if ( ! $is_admin )
   $is_global = 'N';
-
 $adding_report = ( empty ( $report_id ) || $report_id <= 0 );
 
 // Check permissions.
@@ -115,6 +120,20 @@ if ( empty ( $error ) ) {
   if ( empty ( $report_name ) || trim ( $report_name ) == '' )
     $report_name = translate ( 'Unnamed Report' );
 
+	switch($report_type)
+	{
+		case "RSS":
+			$report_type="RSS";
+			break;
+		case "html-part":
+			$report_type="html-part";
+			break;		case "html":
+		default:
+			$report_type="html";
+			break;
+ 	}
+ 	//error_log("edit_report_handler 2 report_type=".$report_type, 0);
+
   $names = array ( 'cal_login', 'cal_update_date', 'cal_report_type',
     'cal_report_name', 'cal_user', 'cal_include_header', 'cal_time_range',
     'cal_cat_id', 'cal_allow_nav', 'cal_include_empty', 'cal_is_global',
@@ -123,8 +142,9 @@ if ( empty ( $error ) ) {
   $values = array (
     ( $updating_public ? '__public__' : $login ),
     date ( 'Ymd' ),
-    'html',
-    $report_name,
+   // 'html',
+    $report_type,
+     $report_name,
     ( ! $is_admin || empty ( $report_user ) ? null : $report_user ),
     ( empty ( $include_header ) || $include_header != 'Y' ? 'N' : 'Y' ),
     ( isset ( $time_range ) ? $time_range : 11 ),
@@ -166,7 +186,6 @@ if ( empty ( $error ) ) {
     $values[] = $report_id; // Push the $report_id to $values.
   }
 }
-
 if ( empty ( $error ) && ! dbi_execute ( $sql, $values ) )
   $error = db_error ();
 

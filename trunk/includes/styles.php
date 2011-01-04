@@ -127,10 +127,10 @@ defined ( '_ISVALID' ) or die ( 'You cannot access this file directly!' );
 // this will wrap the CSS with the proper mimetype tags.
 $end_style = '';
 if ( ! empty ( $_SERVER['PHP_SELF'] ) && !
-    preg_match ( '/css_cacher.php/', $_SERVER['PHP_SELF'] ) ) {
-  echo '<style type="text/css">
+preg_match ( '/css_cacher.php/', $_SERVER['PHP_SELF'] ) ) {
+	echo '<style type="text/css">
 ';
-  $end_style = '
+	$end_style = '
 </style>
 ';
 }
@@ -138,7 +138,7 @@ if ( ! empty ( $_SERVER['PHP_SELF'] ) && !
 echo '  body {
     margin:2px;
     background:' . $GLOBALS['BGCOLOR'] . ( empty ( $GLOBALS['BGIMAGE'] )
-  ? '' : ' url( ' . $GLOBALS['BGIMAGE'] . ' ) ' . $GLOBALS['BGREPEAT'] ) . ';
+? '' : ' url( ' . $GLOBALS['BGIMAGE'] . ' ) ' . $GLOBALS['BGREPEAT'] ) . ';
     color:' . $GLOBALS['TEXTCOLOR'] . ';
     font-family:' . $GLOBALS['FONTS'] . ';
   }
@@ -823,12 +823,12 @@ echo '  body {
   }
   #minicalendar table {
     width:'
- . ( empty ( $GLOBALS['MINICALWIDTH'] ) ? '160px' : $GLOBALS['MINICALWIDTH'] ) . ';
+    . ( empty ( $GLOBALS['MINICALWIDTH'] ) ? '160px' : $GLOBALS['MINICALWIDTH'] ) . ';
   }
   #minicalendar td,
   #minicalendar th {
     font-size:'
- . ( empty ( $GLOBALS['MINICALFONT'] ) ? '11px' : $GLOBALS['MINICALFONT'] ) . ';
+    . ( empty ( $GLOBALS['MINICALFONT'] ) ? '11px' : $GLOBALS['MINICALFONT'] ) . ';
   }
   .embactlog {
     width:100%;
@@ -1320,4 +1320,4 @@ echo '  body {
    background:' . $CELLBG . ';
   }' . $end_style;
 
-?>
+    ?>

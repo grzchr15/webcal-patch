@@ -18,39 +18,39 @@ load_global_settings ();
 
 @session_start ();
 $login = ( empty ( $_SESSION['webcal_login'] )
-  ? '__public__' : $_SESSION['webcal_login'] );
+? '__public__' : $_SESSION['webcal_login'] );
 $login = ( empty ( $_SESSION['webcal_tmp_login'] )
-  ? $login : $_SESSION['webcal_tmp_login'] );
+? $login : $_SESSION['webcal_tmp_login'] );
 // .
 // If calling script uses 'guest', we must also.
 if ( ! empty ( $_GET['login'] ) )
-  $login = $_GET['login'];
+$login = $_GET['login'];
 else
 if ( ! empty ( $_REQUEST['login'] ) )
-  $login = $_REQUEST['login'];
+$login = $_REQUEST['login'];
 
 if ( substr ( $login, 0, 10 ) == '__public__' )
-  $login = '__public__';
-	
+$login = '__public__';
+
 load_user_preferences ( $login );
 // .
 // We will cache CSS as default, but override from admin and pref
 // by incrementing the webcalendar_csscache cookie value.
 $cookie = ( isset ( $_COOKIE['webcalendar_csscache'] )
-  ? $_COOKIE['webcalendar_csscache'] : 0 );
+? $_COOKIE['webcalendar_csscache'] : 0 );
 
 header ( 'Content-type: text/css' );
 header ( 'Last-Modified: ' . date ( 'r', mktime ( 0, 0, 0 ) + $cookie ) );
 // .
 // If we are calling from admin or pref, expire CSS now.
 if ( empty ( $_SESSION['webcal_tmp_login'] ) ) {
-  header ( 'Expires: ' . date ( 'D, j M Y H:i:s', time () + 86400 ) . ' UTC' );
-  header ( 'Cache-Control: Public' );
-  header ( 'Pragma: Public' );
+	header ( 'Expires: ' . date ( 'D, j M Y H:i:s', time () + 86400 ) . ' UTC' );
+	header ( 'Cache-Control: Public' );
+	header ( 'Pragma: Public' );
 }
 
 if ( ini_get ( 'zlib.output_compression' ) != 1 )
-  ob_start( 'ob_gzhandler' );
+ob_start( 'ob_gzhandler' );
 
 include_once ( 'includes/styles.php' );
 

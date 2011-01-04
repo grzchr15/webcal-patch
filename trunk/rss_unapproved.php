@@ -58,27 +58,27 @@ $WebCalendar->initializeSecondPhase ();
 $appStr = generate_application_name ();
 // If WebCalendar is using http auth, then $login will be set in validate.php.
 if ( empty ( $_SERVER['PHP_AUTH_USER'] ) && ! empty ( $_ENV['REMOTE_USER'] ) ) {
-  list ( $_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'] ) =
-  explode ( ':', base64_decode ( substr ( $_ENV['REMOTE_USER'], 6 ) ) );
+	list ( $_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'] ) =
+	explode ( ':', base64_decode ( substr ( $_ENV['REMOTE_USER'], 6 ) ) );
 
-  $_SERVER['PHP_AUTH_USER'] = trim ( $_SERVER['PHP_AUTH_USER'] );
-  $_SERVER['PHP_AUTH_PW'] = trim ( $_SERVER['PHP_AUTH_PW'] );
+	$_SERVER['PHP_AUTH_USER'] = trim ( $_SERVER['PHP_AUTH_USER'] );
+	$_SERVER['PHP_AUTH_PW'] = trim ( $_SERVER['PHP_AUTH_PW'] );
 }
 
 unset ( $_ENV['REMOTE_USER'] );
 if ( empty ( $login ) || $login == '__public__' ) {
-  if ( isset ( $_SERVER['PHP_AUTH_USER'] ) &&
-      user_valid_login ( $_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], true ) )
-    $login = $_SERVER['PHP_AUTH_USER'];
+	if ( isset ( $_SERVER['PHP_AUTH_USER'] ) &&
+	user_valid_login ( $_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], true ) )
+	$login = $_SERVER['PHP_AUTH_USER'];
 
-  if ( empty ( $login ) || $login != $_SERVER['PHP_AUTH_USER'] ) {
-    $_SERVER['PHP_AUTH_PW'] = $_SERVER['PHP_AUTH_USER'] = '';
-    unset ( $_SERVER['PHP_AUTH_USER'] );
-    unset ( $_SERVER['PHP_AUTH_PW'] );
-    header ( 'WWW-Authenticate: Basic realm="' . $appStr . '"' );
-    header ( 'HTTP/1.0 401 Unauthorized' );
-    exit;
-  }
+	if ( empty ( $login ) || $login != $_SERVER['PHP_AUTH_USER'] ) {
+		$_SERVER['PHP_AUTH_PW'] = $_SERVER['PHP_AUTH_USER'] = '';
+		unset ( $_SERVER['PHP_AUTH_USER'] );
+		unset ( $_SERVER['PHP_AUTH_PW'] );
+		header ( 'WWW-Authenticate: Basic realm="' . $appStr . '"' );
+		header ( 'HTTP/1.0 401 Unauthorized' );
+		exit;
+	}
 }
 
 load_global_settings ();
@@ -93,37 +93,37 @@ user_load_variables ( $login, '' );
 $user = getGetValue ( 'user' );
 // translate 'public' to be '__public__'
 if ( $user == 'public' )
-  $user = '__public__';
+$user = '__public__';
 // Make sure the current user has proper permissions to see unapproved
 // events for the specified user.  We're not checking to see if
 if ( $user != '' ) {
-  if ( access_is_enabled () ) {
-     if ( ! access_user_calendar ( 'approve', $user ) ) {
-       // not allowed
-       $user = login;
-     }
-  } else if ( ! $is_admin && $user != $login && ! $is_assistant &&
-    ! access_is_enabled () ) {
-    $user = $login;
-  }
+	if ( access_is_enabled () ) {
+		if ( ! access_user_calendar ( 'approve', $user ) ) {
+			// not allowed
+			$user = login;
+		}
+	} else if ( ! $is_admin && $user != $login && ! $is_assistant &&
+	! access_is_enabled () ) {
+		$user = $login;
+	}
 }
 
 // If not, user current user's login
 if ( $user == '' )
-  $user = $login;
+$user = $login;
 
 
 $charset = ( empty ( $LANGUAGE ) ? 'iso-8859-1' : translate ( 'charset' ) );
 // This should work ok with RSS, may need to hardcode fallback value.
 $lang = languageToAbbrev ( $LANGUAGE == 'Browser-defined' || $LANGUAGE == 'none'
-  ? $lang : $LANGUAGE );
+? $lang : $LANGUAGE );
 if ( $lang == 'en' )
-  $lang = 'en-us'; //the RSS 2.0 default.
+$lang = 'en-us'; //the RSS 2.0 default.
 
 user_load_variables ( $user, 'temp_' );
 $appStr = generate_application_name ();
 $descr = $appStr . ' - ' . translate ( 'Unapproved Entries' ) . ' - ' .
-  $temp_fullname;
+$temp_fullname;
 
 // header ( 'Content-type: application/rss+xml');
 header ( 'Content-type: text/xml' );
@@ -135,7 +135,7 @@ echo '<?xml version="1.0" encoding="' . $charset . '"?>
     <description><![CDATA[' . $descr . ']]></description>
     <language>' . $lang . '</language>
     <generator>WebCalendar ' . $PROGRAM_VERSION
- . '</generator>
+. '</generator>
     <image>
       <title><![CDATA[' . $appStr . ']]></title>
       <link>' . $SERVER_URL . '</link>
@@ -154,81 +154,81 @@ exit;
  *       when user access control is enabled.
  * NOTE: this function is almost identical to the one in list_unapproved.php.
  * Just the format (RSS vs HTML) is different.
-*/
+ */
 function list_unapproved ( $user ) {
-  global $login, $SERVER_URL;
+	global $login, $SERVER_URL;
 
-  $count = 0;
-  $ret = '';
+	$count = 0;
+	$ret = '';
 
-  $sql = 'SELECT we.cal_id, we.cal_name, we.cal_description, weu.cal_login,
+	$sql = 'SELECT we.cal_id, we.cal_name, we.cal_description, weu.cal_login,
     we.cal_priority, we.cal_date, we.cal_time, we.cal_duration,
     weu.cal_status, we.cal_type
     FROM webcal_entry we, webcal_entry_user weu
     WHERE we.cal_id = weu.cal_id AND weu.cal_login = ? AND weu.cal_status = \'W\'
     ORDER BY weu.cal_login, we.cal_date';
-  $rows = dbi_get_cached_rows ( $sql, array ( $user ) );
-  if ( $rows ) {
-    $allDayStr = translate ( 'All day event' );
-    $appConStr = translate ( 'Approve/Confirm' );
-    $appSelStr = translate ( 'Approve Selected' );
-    $checkAllStr = translate ( 'Check All' );
-    $deleteStr = translate ( 'Delete' );
-    $emailStr = translate ( 'Emails Will Not Be Sent' );
-    $rejectSelStr = translate ( 'Reject Selected' );
-    $rejectStr = translate ( 'Reject' );
-    $uncheckAllStr = translate ( 'Uncheck All' );
-    $viewStr = translate ( 'View this entry' );
-    for ( $i = 0, $cnt = count ( $rows ); $i < $cnt; $i++ ) {
-      $row = $rows[$i];
-      $id = $row[0];
-      $name = $row[1];
-      $description = $row[2];
-      $cal_user = $row[3];
-      $pri = $row[4];
-      $date = $row[5];
-      $time = sprintf ( "%06d", $row[6] );
-      $duration = $row[7];
-      $status = $row[8];
-      $type = $row[9];
-      $view_link = 'view_entry';
-      $entryID = 'entry' . $type . $id;
-      $unixtime = date_to_epoch ( $date . $time );
+	$rows = dbi_get_cached_rows ( $sql, array ( $user ) );
+	if ( $rows ) {
+		$allDayStr = translate ( 'All day event' );
+		$appConStr = translate ( 'Approve/Confirm' );
+		$appSelStr = translate ( 'Approve Selected' );
+		$checkAllStr = translate ( 'Check All' );
+		$deleteStr = translate ( 'Delete' );
+		$emailStr = translate ( 'Emails Will Not Be Sent' );
+		$rejectSelStr = translate ( 'Reject Selected' );
+		$rejectStr = translate ( 'Reject' );
+		$uncheckAllStr = translate ( 'Uncheck All' );
+		$viewStr = translate ( 'View this entry' );
+		for ( $i = 0, $cnt = count ( $rows ); $i < $cnt; $i++ ) {
+			$row = $rows[$i];
+			$id = $row[0];
+			$name = $row[1];
+			$description = $row[2];
+			$cal_user = $row[3];
+			$pri = $row[4];
+			$date = $row[5];
+			$time = sprintf ( "%06d", $row[6] );
+			$duration = $row[7];
+			$status = $row[8];
+			$type = $row[9];
+			$view_link = 'view_entry';
+			$entryID = 'entry' . $type . $id;
+			$unixtime = date_to_epoch ( $date . $time );
 
-      $timestr = '';
-      if ( $time > 0 || ( $time == 0 && $duration != 1440 ) ) {
-        $eventstart = date_to_epoch ( $date . $time );
-        $eventstop = $eventstart + $duration;
-        $eventdate = date_to_str ( date ( 'Ymd', $eventstart ) );
-        $timestr = display_time ( '', 0, $eventstart )
-         . ( $duration > 0 ? ' - ' . display_time ( '', 0, $eventstop ) : '' );
-      } else {
-        // Don't shift date if All Day or Untimed.
-        $eventdate = date_to_str ( $date );
-        // If All Day display in popup.
-        if ( $time == 0 && $duration == 1440 )
-          $timestr = $allDayStr;
-      }
+			$timestr = '';
+			if ( $time > 0 || ( $time == 0 && $duration != 1440 ) ) {
+				$eventstart = date_to_epoch ( $date . $time );
+				$eventstop = $eventstart + $duration;
+				$eventdate = date_to_str ( date ( 'Ymd', $eventstart ) );
+				$timestr = display_time ( '', 0, $eventstart )
+				. ( $duration > 0 ? ' - ' . display_time ( '', 0, $eventstop ) : '' );
+			} else {
+				// Don't shift date if All Day or Untimed.
+				$eventdate = date_to_str ( $date );
+				// If All Day display in popup.
+				if ( $time == 0 && $duration == 1440 )
+				$timestr = $allDayStr;
+			}
 
-      $ret .=
+			$ret .=
         "<item>\n" .
         '  <title><![CDATA[' . htmlspecialchars ( $name ) . ']]></title>' .
         "\n  <link>" . $SERVER_URL .
-        $view_link . '.php?id=' . $id .
+			$view_link . '.php?id=' . $id .
         '&amp;user=' . $cal_user . "</link>\n" .
         '  <description><![CDATA[' . $description  . ']]></description>' . "\n";
-      $ret .= 
+			$ret .=
         '  <category><![CDATA[' . $category . ']]></category>' . "\n";
-        /* RSS 2.0 date format Wed, 02 Oct 2002 13:00:00 GMT */
-      $ret .= '<pubDate>' .
-        gmdate ( 'D, d M Y H:i:s', $unixtime ) . ' GMT</pubDate>' . "\n" .
+			/* RSS 2.0 date format Wed, 02 Oct 2002 13:00:00 GMT */
+			$ret .= '<pubDate>' .
+			gmdate ( 'D, d M Y H:i:s', $unixtime ) . ' GMT</pubDate>' . "\n" .
         '  <guid>' . $SERVER_URL . 'view_entry.php?id=' . $id .
         '&amp;friendly=1&amp;rssuser=' . $login .
        '&amp;date=' . $d . "</guid>\n";
-      $ret .= "</item>\n\n";
-    }
-  }
-  return $ret;
+			$ret .= "</item>\n\n";
+		}
+	}
+	return $ret;
 } //end list_unapproved ()
 
 ?>

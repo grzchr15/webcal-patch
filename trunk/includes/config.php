@@ -279,4 +279,16 @@ function do_config ( $fileLoc ) {
     $single_user_login = '';
 }
 
+function bre_var_dump($msg,$param)
+{
+	ob_start();
+	echo $msg." Start(";
+	var_dump($param);
+	echo $msg." )End ";
+	$out2 = ob_get_contents();
+	ob_end_clean();
+	return $out2;
+}
+
+
 ?>

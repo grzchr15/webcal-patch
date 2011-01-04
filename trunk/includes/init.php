@@ -46,6 +46,27 @@ if ( empty ( $_SERVER['PHP_SELF'] ) ||
       preg_match ( "/\/includes\//", $_SERVER['PHP_SELF'] ) ) )
   die ( 'You cannot access this file directly!' );
 
+  
+//define (bre_debug_file,"/dev/null");
+function bre_error_log($msg)
+{
+	$msgout='';
+	$msgout=$msgout.debug_backtrace().' ';
+	//var_dump(debug_backtrace());
+	/*$msgout=$msgout.zend_get_executed_filename(TSRMLS_C);
+	$msgout=$msgout.'('.zend_get_executed_lineno(TSRMLS_C);
+	$msgout=$msgout.')';
+	$msgout=$msgout.get_active_function_name(TSRMLS_C);
+	*/
+	$msgout=$msgout.' '.$msg;
+	//error_log($msg);
+}
+function writebre_err($msg)
+{
+	//error_log("msg=".$msg);
+}
+
+require_once dirname(__FILE__).'/../../FirePHP/fb.php';
 include_once 'includes/translate.php';
 require_once 'includes/classes/WebCalendar.class.php';
 require_once 'includes/classes/Event.class.php';
