@@ -105,11 +105,39 @@ $page_template = '<dl>${days}</dl>';
 // Setup option arrays.
 $day_options = array ( 'events', 'date', 'fulldate', 'report_id' );
 
-$event_options = array ( 'name', 'description', 'date', 'fulldate', 'time',
-  'starttime', 'endtime', 'duration', 'location', 'url', 'priority', 'href',
-  'user', 'fullname', 'report_id' );
+$event_options = array ( 
+	'name_str',     
+  	'date_str',        
+	'date',            
+	'description_str', 
+	'duration_str',    
+	'end_time_str',    
+	'date_full_str',   
+	'fullname',        
+	'href_str',        
+	'id',              
+	'location',          
+	'pri_str',         
+	'report_id',       
+	'start_time_str',  
+	'time_str',        
+	'url',    
+	'url_str',          
+	'user'
+	,'address'             
+	);
 
-$page_options = array ( 'days', 'report_id' );
+$page_options = array ( 
+	'days', 
+	'report_id',
+	'start_date',
+	'start_date_str',
+	'start_date_full_str',
+	'end_date',
+	'end_date_str',
+	'end_date_full_str' 
+);
+
 
 /* Generate clickable option lists.
  */
@@ -321,6 +349,28 @@ if ( $CATEGORIES_ENABLED == 'Y' ) {
           </td>
         </tr>';
 } //end $CATEGORIES_ENABLED test
+
+// start report_type
+  echo '
+        <tr>
+          <td><label for="rpt_cat_id">' . translate ( 'Report_Type' )
+   . ':</label></td>
+          <td>
+            <select name="report_type" id="rpt_type">';
+       $K="html";
+   		echo '<option value="' . $K . '"' . ( $report_type == $K ? $selected : '' )
+     . '>' . $K . '</option>';
+       $K="html-part";
+   		echo '<option value="' . $K . '"' . ( $report_type == $K ? $selected : '' )
+     . '>' . $K . '</option>';
+       $K="RSS";
+   		echo '<option value="' . $K . '"' . ( $report_type == $K ? $selected : '' )
+     . '>' . $K . '</option>';
+	  echo '
+            </select>
+          </td>
+        </tr>';
+//end report_type
 echo '
       </table>
       <table>

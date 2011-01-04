@@ -147,8 +147,12 @@ $use_fckeditor = $use_htmlarea = false;
 if ( $ALLOW_HTML_DESCRIPTION == 'Y' ) {
   // Allow HTML in description.
   // If they have installed an HTML edit widget, make use of it.
-  if ( file_exists ( 'includes/FCKeditor-2.0/fckeditor.js' ) &&
-      file_exists ( 'includes/FCKeditor-2.0/fckconfig.js' ) ) {
+  $path_to_fckeditorjs=dirname(__FILE__).'/includes/FCKeditor/fckeditor.js';
+  $path_to_fckconfigjs=dirname(__FILE__).'/includes/FCKeditor/fckconfig.js';
+  fb($path_to_fckeditorjs,"path_to_fckeditorjs");
+  fb($path_to_fckconfigjs,"path_to_fckconfigjs");
+  if ( file_exists ( dirname(__FILE__).'/includes/FCKeditor/fckeditor.js' ) &&
+       file_exists ( dirname(__FILE__).'/includes/FCKeditor/fckconfig.js' ) ) {
     $textareasize = '20';
     $use_fckeditor = true;
   } else
@@ -159,6 +163,9 @@ if ( $ALLOW_HTML_DESCRIPTION == 'Y' ) {
     $use_htmlarea = true;
   }
 }
+
+fb($use_fckeditor,"use_fckeditor");
+fb($ALLOW_HTML_DESCRIPTION,"ALLOW_HTML_DESCRIPTION");
 
 $byday = $bymonth = $bymonthday = $bysetpos = $participants = array ();
 $exceptions = $inclusions = $reminder = array ();
@@ -1612,12 +1619,14 @@ if ( $can_edit ) {
   // Then the current FCKEditor SVN version would probably work.
        . ( $use_fckeditor ? '
       <script type="text/javascript" '
-     . 'src="includes/FCKeditor-2.0/fckeditor.js"></script>
+     . 'src="includes/FCKeditor/fckeditor.js"></script>
       <script type="text/javascript">
         var myFCKeditor = new FCKeditor ( \'description\' );
 
-        myFCKeditor.BasePath = \'includes/FCKeditor-2.0/\';
-        myFCKeditor.ToolbarSet = \'Medium\';
+        myFCKeditor.BasePath = \'includes/FCKeditor/\';
+        myFCKeditor.ToolbarSet = \'Webcal\';
+        myFCKeditor.ToolbarSet = \'Default\';
+        
         myFCKeditor.Config[\'SkinPath\'] = \'./skins/office2003/\';
         myFCKeditor.ReplaceTextarea ();
       </script>' : '' ) . '

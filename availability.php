@@ -18,8 +18,8 @@
 include_once 'includes/init.php';
 // Don't allow users to use this feature if "allow view others" is disabled.
 if ( $ALLOW_VIEW_OTHER == 'N' && ! $is_admin )
-  // not allowed...
-  exit;
+// not allowed...
+exit;
 
 
 $users = getGetValue ( 'users' );
@@ -32,22 +32,22 @@ $day = getGetValue ( 'day' );
 // translate ( 'Program Error' ) translate ( 'No XXX specified!' )
 $noXStr = translate ( 'Program Error No XXX specified!' );
 if ( empty ( $users ) ) {
-  echo str_replace ( 'XXX', translate ( 'user' ), $noXStr );
-  exit;
+	echo str_replace ( 'XXX', translate ( 'user' ), $noXStr );
+	exit;
 } elseif ( empty ( $year ) ) {
-  echo str_replace ( 'XXX', translate ( 'year' ), $noXStr );
-  exit;
+	echo str_replace ( 'XXX', translate ( 'year' ), $noXStr );
+	exit;
 } elseif ( empty ( $month ) ) {
-  echo str_replace ( 'XXX', translate ( 'month' ), $noXStr );
-  exit;
+	echo str_replace ( 'XXX', translate ( 'month' ), $noXStr );
+	exit;
 } elseif ( empty ( $day ) ) {
-  echo str_replace ( 'XXX', translate ( 'day' ), $noXStr );
-  exit;
+	echo str_replace ( 'XXX', translate ( 'day' ), $noXStr );
+	exit;
 }
 
 print_header (
-  array ( 'js/availability.php/false/' . "$month/$day/$year/"
-   . getGetValue ( 'form' ) ), '', 'onload="focus();"', true, false, true );
+array ( 'js/availability.php/false/' . "$month/$day/$year/"
+. getGetValue ( 'form' ) ), '', 'onload="focus();"', true, false, true );
 
 $next_url = $prev_url = '?users=' . $users;
 $time = mktime ( 0, 0, 0, $month, $day, $year );
@@ -64,15 +64,15 @@ $prevStr = translate ( 'Previous' );
 echo '
     <div style="width:99%;">
       <a title="' . $prevStr . '" class="prev" href="' . $prev_url
- . '"><img src="images/leftarrow.gif" class="prev" alt="'
- . $prevStr . '" /></a>
+. '"><img src="images/leftarrow.gif" class="prev" alt="'
+. $prevStr . '" /></a>
       <a title="' . $nextStr . '" class="next" href="' . $next_url
- . '"><img src="images/rightarrow.gif" class="next" alt="'
- . $nextStr . '" /></a>
+. '"><img src="images/rightarrow.gif" class="next" alt="'
+. $nextStr . '" /></a>
       <div class="title">
         <span class="date">';
 printf ( "%s, %s %d, %d", weekday_name ( strftime ( "%w", $time ) ),
-  month_name ( $month - 1 ), $day, $year );
+month_name ( $month - 1 ), $day, $year );
 echo '</span><br />
       </div>
     </div><br />

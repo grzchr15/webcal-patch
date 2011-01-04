@@ -33,24 +33,24 @@ $out = '
 
 // If login is public user, make sure public can view others...
 if ( $login == '__public__' && $login != $user && $PUBLIC_ACCESS_OTHERS != 'Y' ) {
-  $out .= '
+	$out .= '
   <error>' . translate ( 'Not authorized' ) . '</error>
 </events>
 ';
-  exit;
+	exit;
 }
 
 $userlist = get_my_users ();
 
 for ( $i = 0, $cnt = count ( $userlist ); $i < $cnt; $i++ ) {
-  $out .= '
+	$out .= '
   <user>
     <login>' . $userlist[$i]['cal_login'] . '</login>
     <lastname>' . ws_escape_xml ( $userlist[$i]['cal_lastname'] ) . '</lastname>
     <firstname>' . ws_escape_xml ( $userlist[$i]['cal_firstname'] ) . '</firstname>
     <fullname>' . ws_escape_xml ( $userlist[$i]['cal_fullname'] ) . '</fullname>
     <email>' . ws_escape_xml ( $userlist[$i]['cal_email'] ) . '</email>'
-   . ( $userlist[$i]['cal_is_admin'] == 'Y' ? '
+    . ( $userlist[$i]['cal_is_admin'] == 'Y' ? '
     <admin>1</admin>' : '' ) . '
   </user>';
 }
@@ -61,7 +61,7 @@ $out .= '
 
 // If web service debugging is on...
 if ( ! empty ( $WS_DEBUG ) && $WS_DEBUG )
-  ws_log_message ( $out );
+ws_log_message ( $out );
 
 // Send output now...
 echo $out;

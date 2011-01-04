@@ -65,17 +65,17 @@ $WebCalendar->initializeSecondPhase ();
 // Calculate username.
 // If using http_auth, use those credentials.
 if ( $use_http_auth && empty ( $user ) )
-  $user = $login;
+$user = $login;
 
 if ( empty ( $user ) ) {
-  $arr = explode ( '/', $PHP_SELF );
-  $user = $arr[count ( $arr )-1];
-  # Remove any trailing ".ifb" in user name.
-  $user = preg_replace ( '/\.[iI][fF][bB]$/', '', $user );
+	$arr = explode ( '/', $PHP_SELF );
+	$user = $arr[count ( $arr )-1];
+	# Remove any trailing ".ifb" in user name.
+	$user = preg_replace ( '/\.[iI][fF][bB]$/', '', $user );
 }
 
 if ( $user == 'public' )
-  $user = '__public__';
+$user = '__public__';
 
 load_global_settings ();
 
@@ -90,15 +90,15 @@ $WebCalendar->setLanguage ();
 user_load_variables ( $user, 'publish_' );
 
 if ( empty ( $FREEBUSY_ENABLED ) || $FREEBUSY_ENABLED != 'Y' ) {
-  header ( 'Content-Type: text/plain' );
-  echo 'user=' . $user . "\n" . print_not_auth (19);
-  exit;
+	header ( 'Content-Type: text/plain' );
+	echo 'user=' . $user . "\n" . print_not_auth (19);
+	exit;
 }
 
 // Make sure they specified a username.
 $no_user = translate ( 'No user specified.' );
 if ( empty ( $user ) )
-  die_miserable_death ( $no_user );
+die_miserable_death ( $no_user );
 
 $get_unapproved = false;
 $datem = date ( 'm' );
@@ -119,36 +119,36 @@ $events = read_events ( $user, $startdate, $enddate );
 // Loop from start date until we reach end date...
 $event_text = '';
 for ( $d = $startdate; $d <= $enddate; $d += 86400 ) {
-  $dYmd = date ( 'Ymd', $d );
-  $ev = get_entries ( $dYmd, $get_unapproved );
-  $evcnt = count ( $ev );
-  for ( $i = 0; $i < $evcnt; $i++ ) {
-    $event_text .= fb_export_time ( $dYmd, $ev[$i]->getDuration (),
-      $ev[$i]->getTime (), 'ical' );
-  }
-  $revents = get_repeating_entries ( $user, $dYmd, $get_unapproved );
-  $recnt = count ( $revents );
-  for ( $i = 0; $i < $recnt; $i++ ) {
-    $event_text .= fb_export_time ( $dYmd, $revents[$i]->getDuration (),
-      $revents[$i]->getTime (), 'ical' );
-  }
+	$dYmd = date ( 'Ymd', $d );
+	$ev = get_entries ( $dYmd, $get_unapproved );
+	$evcnt = count ( $ev );
+	for ( $i = 0; $i < $evcnt; $i++ ) {
+		$event_text .= fb_export_time ( $dYmd, $ev[$i]->getDuration (),
+		$ev[$i]->getTime (), 'ical' );
+	}
+	$revents = get_repeating_entries ( $user, $dYmd, $get_unapproved );
+	$recnt = count ( $revents );
+	for ( $i = 0; $i < $recnt; $i++ ) {
+		$event_text .= fb_export_time ( $dYmd, $revents[$i]->getDuration (),
+		$revents[$i]->getTime (), 'ical' );
+	}
 }
 
 header ( 'Content-Type: text/calendar' );
 header ( 'Content-Disposition: attachment; filename="' . $login . '.ifb"' );
 echo 'BEGIN:VCALENDAR' . "\r\n"
- . 'X-WR-CALNAME;VALUE=TEXT:' . str_replace ( ',', '\\,',
-  ( empty ( $publish_fullname ) ? $user : translate ( $publish_fullname ) ) ) . "\r\n"
- . generate_prodid ()
- . 'VERSION:2.0' . "\r\n"
- . 'METHOD:PUBLISH' . "\r\n"
- . 'BEGIN:VFREEBUSY' . "\r\n"
- . 'DTSTART:' . export_get_utc_date ( date ( 'Ymd', $startdate ), 0 ) . "\r\n"
- . 'DTEND:' . export_get_utc_date ( date ( 'Ymd', $enddate ), '235959' ) . "\r\n"
- . $event_text
- . 'URL:' . $GLOBALS['SERVER_URL'] . 'freebusy.php/' . $user . '.ifb' . "\r\n"
- . 'END:VFREEBUSY' . "\r\n"
- . 'END:VCALENDAR' . "\r\n";
+. 'X-WR-CALNAME;VALUE=TEXT:' . str_replace ( ',', '\\,',
+( empty ( $publish_fullname ) ? $user : translate ( $publish_fullname ) ) ) . "\r\n"
+. generate_prodid ()
+. 'VERSION:2.0' . "\r\n"
+. 'METHOD:PUBLISH' . "\r\n"
+. 'BEGIN:VFREEBUSY' . "\r\n"
+. 'DTSTART:' . export_get_utc_date ( date ( 'Ymd', $startdate ), 0 ) . "\r\n"
+. 'DTEND:' . export_get_utc_date ( date ( 'Ymd', $enddate ), '235959' ) . "\r\n"
+. $event_text
+. 'URL:' . $GLOBALS['SERVER_URL'] . 'freebusy.php/' . $user . '.ifb' . "\r\n"
+. 'END:VFREEBUSY' . "\r\n"
+. 'END:VCALENDAR' . "\r\n";
 
 exit;
 

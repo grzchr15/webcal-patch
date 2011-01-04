@@ -19,8 +19,8 @@
 include_once 'includes/init.php';
 
 if ( ! $is_admin || ( access_is_enabled () && !
-      access_can_access_function ( ACCESS_ACTIVITY_LOG ) ) )
-  die_miserable_death ( print_not_auth (2) );
+access_can_access_function ( ACCESS_ACTIVITY_LOG ) ) )
+die_miserable_death ( print_not_auth (2) );
 
 $eventsStr = translate ( 'Events' );
 $nextStr = translate ( 'Next' );
@@ -39,27 +39,27 @@ echo generate_activity_log ( '', $sys, $startid );
 echo '
     <div class="navigation">'
 // Go BACK in time.
- . ( ! empty ( $nextpage ) ? '
+. ( ! empty ( $nextpage ) ? '
       <a title="' . $prevStr . '&nbsp;' . $PAGE_SIZE . '&nbsp;' . $eventsStr
-   . '" class="prev" href="activity_log.php?startid=' . $nextpage
-   . ( $sys ? '&amp;system=1' : '' ) . '">' . $prevStr . '&nbsp;' . $PAGE_SIZE
-   . '&nbsp;' . $eventsStr . '</a>' : '' );
+. '" class="prev" href="activity_log.php?startid=' . $nextpage
+. ( $sys ? '&amp;system=1' : '' ) . '">' . $prevStr . '&nbsp;' . $PAGE_SIZE
+. '&nbsp;' . $eventsStr . '</a>' : '' );
 
 if ( ! empty ( $startid ) ) {
-  $previd = $startid + $PAGE_SIZE;
-  $res = dbi_execute ( 'SELECT MAX( cal_log_id ) FROM webcal_entry_log' );
-  if ( $res ) {
-    if ( $row = dbi_fetch_row ( $res ) )
-      // Go FORWARD in time.
-      echo '
+	$previd = $startid + $PAGE_SIZE;
+	$res = dbi_execute ( 'SELECT MAX( cal_log_id ) FROM webcal_entry_log' );
+	if ( $res ) {
+		if ( $row = dbi_fetch_row ( $res ) )
+		// Go FORWARD in time.
+		echo '
       <a title="' . $nextStr . '&nbsp;' . $PAGE_SIZE . '&nbsp;' . $eventsStr
-       . '" class="next" href="activity_log.php' . ( $row[0] <= $previd
-        ? ( $sys ? '?system=1' : '' )
-        : '?startid=' . $previd . ( $sys ? '&amp;system=1' : '' ) ) . '">'
-       . $nextStr . '&nbsp;' . $PAGE_SIZE . '&nbsp;' . $eventsStr . '</a><br />';
+		. '" class="next" href="activity_log.php' . ( $row[0] <= $previd
+		? ( $sys ? '?system=1' : '' )
+		: '?startid=' . $previd . ( $sys ? '&amp;system=1' : '' ) ) . '">'
+		. $nextStr . '&nbsp;' . $PAGE_SIZE . '&nbsp;' . $eventsStr . '</a><br />';
 
-    dbi_free_result ( $res );
-  }
+		dbi_free_result ( $res );
+	}
 }
 
 ob_end_flush ();

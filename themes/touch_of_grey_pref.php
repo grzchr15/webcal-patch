@@ -30,7 +30,7 @@ $webcal_theme = array (
   'THFG'         => '#000000',  // Table header text
   'TODAYCELLBG'  => '#E0E2EB',  // Table cell background for current day
   'WEEKENDBG'    => '#F0F1F5',  // Table cell background for weekends
- );
+);
 
 include 'theme_inc.php';
 

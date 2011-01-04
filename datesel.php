@@ -10,15 +10,15 @@ $form = getGetValue ( 'form' );
 $date = getGetValue ( 'date' );
 
 if ( strlen ( $date ) > 0 ) {
-  $thisyear = substr ( $date, 0, 4 );
-  $thismonth = substr ( $date, 4, 2 );
+	$thisyear = substr ( $date, 0, 4 );
+	$thismonth = substr ( $date, 4, 2 );
 } else {
-  $thisyear = date ( 'Y' );
-  $thismonth = date ( 'm' );
+	$thisyear = date ( 'Y' );
+	$thismonth = date ( 'm' );
 }
 
 $href = 'href="datesel.php?form=' . $form . '&amp;fday=' . $fday
- . '&amp;fmonth=' . $fmonth . '&amp;fyear=' . $fyear . '&amp;date=';
+. '&amp;fmonth=' . $fmonth . '&amp;fyear=' . $fyear . '&amp;date=';
 
 $nextdate = $href . date ( 'Ym01"', mktime ( 0, 0, 0, $thismonth + 1, 1, $thisyear ) );
 $nextStr = translate ( 'Next' );
@@ -38,25 +38,25 @@ print_header ( '','', '', true, false, true, true, true );
 //build weekday names
 $wkdys = '';
 for ( $i = 0; $i < 7; $i++ ) {
-  $wkdys .= '<td>' . weekday_name ( ( $i + $WEEK_START ) % 7, 'D' ) . '</td>';
+	$wkdys .= '<td>' . weekday_name ( ( $i + $WEEK_START ) % 7, 'D' ) . '</td>';
 }
 //build month grid
 $mdays = '';
 for ( $i = $wkstart; date ( 'Ymd', $i ) <= $monthendYmd; $i += 604800 ) {
-  $mdays .= '
+	$mdays .= '
              <tr>';
-  for ( $j = 0; $j < 7; $j++ ) {
-    $date = $i + ( $j * 86400 ) + 43200;
-    $dateYmd = date ( 'Ymd', $date );
-    $mdays .= '
+	for ( $j = 0; $j < 7; $j++ ) {
+		$date = $i + ( $j * 86400 ) + 43200;
+		$dateYmd = date ( 'Ymd', $date );
+		$mdays .= '
                <td'
-     . ( ( $dateYmd >= $monthstartYmd && $dateYmd <= $monthendYmd ) ||
-      $DISPLAY_ALL_DAYS_IN_MONTH == 'Y'
-      ? ' class="field"><a href="javascript:sendDate(\''
-       . $dateYmd . '\')">' . date ( 'j', $date ) . '</a>'
-      : '>' ) . '</td>';
-  }
-  $mdays .= '
+               . ( ( $dateYmd >= $monthstartYmd && $dateYmd <= $monthendYmd ) ||
+               $DISPLAY_ALL_DAYS_IN_MONTH == 'Y'
+               ? ' class="field"><a href="javascript:sendDate(\''
+               . $dateYmd . '\')">' . date ( 'j', $date ) . '</a>'
+               : '>' ) . '</td>';
+	}
+	$mdays .= '
              </tr>';
 }
 
@@ -84,7 +84,7 @@ echo <<<EOT
                      alt="{$nextStr}" /></a></td>
               </tr>
               <tr class="day">
-               {$wkdys}
+              {$wkdys}
               </tr>
               {$mdays}
 
@@ -111,6 +111,6 @@ echo <<<EOT
   </script>
 EOT;
 
-echo print_trailer ( false, true, true );
+              echo print_trailer ( false, true, true );
 
-?>
+              ?>

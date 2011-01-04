@@ -29,7 +29,7 @@ $webcal_theme = array (
   'THFG'         => '#000000',
   'TODAYCELLBG'  => '#FFFF66',
   'WEEKENDBG'    => '#00CC99',
-  );
+);
 
 include 'theme_inc.php';
 

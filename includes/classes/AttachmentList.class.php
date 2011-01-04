@@ -15,17 +15,17 @@
  */
 class AttachmentList extends DocList {
 
-  /**
-   * Creates a new attachment list for the specified event.
-   *
-   * @parm  int    $event_id  The event id
-   * @return AttachmentList The new AttachmentList object
-   * @access public
-   */
-  function AttachmentList ( $event_id )
-  {
-    parent::DocList ( $event_id, 'A' );
-  }
+	/**
+	 * Creates a new attachment list for the specified event.
+	 *
+	 * @parm  int    $event_id  The event id
+	 * @return AttachmentList The new AttachmentList object
+	 * @access public
+	 */
+	function AttachmentList ( $event_id )
+	{
+		parent::DocList ( $event_id, 'A' );
+	}
 
 }
 ?>

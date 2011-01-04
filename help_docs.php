@@ -4,10 +4,10 @@ include_once 'includes/init.php';
 include_once 'includes/help_list.php';
 
 if ( empty ( $SERVER_SOFTWARE ) )
-  $SERVER_SOFTWARE = $_SERVER['SERVER_SOFTWARE'];
+$SERVER_SOFTWARE = $_SERVER['SERVER_SOFTWARE'];
 
 if ( empty ( $HTTP_USER_AGENT ) )
-  $HTTP_USER_AGENT = $_SERVER['HTTP_USER_AGENT'];
+$HTTP_USER_AGENT = $_SERVER['HTTP_USER_AGENT'];
 
 print_header ( '', '', '', true );
 

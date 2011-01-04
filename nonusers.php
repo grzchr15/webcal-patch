@@ -3,16 +3,16 @@
 defined ( '_ISVALID' ) or die ( 'You cannot access this file directly!' );
 
 if ( ! $is_admin ) {
-  echo print_not_auth ( 3, true ) . '
+	echo print_not_auth ( 3, true ) . '
   </body>
 </html>';
-  exit;
+	exit;
 }
 if ( ! $NONUSER_PREFIX ) {
-  echo print_error_header () . translate ( 'NONUSER_PREFIX not set' ) . '
+	echo print_error_header () . translate ( 'NONUSER_PREFIX not set' ) . '
   </body>
 </html>';
-  exit;
+	exit;
 }
 
 $add = getValue ( 'add' );
@@ -27,30 +27,30 @@ echo '
   <div id="tabscontent_nonusers">';
 
 if ( empty ( $error ) ) {
-  echo '
+	echo '
     <a title="' . $newNonUserStr . '" href="edit_nonusers.php?add=1"'
-   . $targetStr . $newNonUserStr . '</a><br />';
-  // Displaying NonUser Calendars
-  $userlist = get_nonuser_cals ();
-  if ( ! empty ( $userlist ) ) {
-    echo '
+    . $targetStr . $newNonUserStr . '</a><br />';
+    // Displaying NonUser Calendars
+    $userlist = get_nonuser_cals ();
+    if ( ! empty ( $userlist ) ) {
+    	echo '
     <ul>';
-    for ( $i = 0, $cnt = count ( $userlist ); $i < $cnt; $i++ ) {
+    	for ( $i = 0, $cnt = count ( $userlist ); $i < $cnt; $i++ ) {
       echo '
       <li><a title="' . $userlist[$i]['cal_fullname']
-       . '" href="edit_nonusers.php?nid=' . $userlist[$i]['cal_login'] . '"'
-       . $targetStr . $userlist[$i]['cal_fullname'] . '</a></li>';
-    }
-    echo '
+      . '" href="edit_nonusers.php?nid=' . $userlist[$i]['cal_login'] . '"'
+      . $targetStr . $userlist[$i]['cal_fullname'] . '</a></li>';
+    	}
+    	echo '
     </ul>';
-  }
+    }
 }
 
 echo '
     <iframe name="nonusersiframe" id="nonusersiframe" style="width: 90%; '
- . 'border: 0; height: 250px;"></iframe>
+    . 'border: 0; height: 250px;"></iframe>
   </div>';
 
-ob_end_flush ();
+    ob_end_flush ();
 
-?>
+    ?>

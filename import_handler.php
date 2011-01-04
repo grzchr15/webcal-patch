@@ -33,85 +33,85 @@ $doOverwrite = ( empty ( $overwrite ) || $overwrite != 'Y' ) ? false : true;
 $numDeleted = 0;
 
 if ( ! empty ( $_FILES['FileName'] ) )
-  $file = $_FILES['FileName'];
+$file = $_FILES['FileName'];
 
 if ( empty ( $file ) )
-  echo translate ( 'No file' ) . '!<br />';
+echo translate ( 'No file' ) . '!<br />';
 
 // Handle user
 $calUser = getValue ( 'calUser' );
 if ( ! empty ( $calUser ) ) {
-  if ( $single_user == 'N' && ! $is_admin )
-    $calUser = $login;
+	if ( $single_user == 'N' && ! $is_admin )
+	$calUser = $login;
 } else
-  $calUser = $login;
+$calUser = $login;
 
 $ImportType = getValue ( 'ImportType' );
 $exc_private = getValue ( 'exc_private' );
 $overwrite = getValue ( 'overwrite' );
 if ( $file['size'] > 0 ) {
-  switch ( $ImportType ) {
+	switch ( $ImportType ) {
 
-    // ADD New modules here:
-/*
-    case 'MODULE':
-      include "import_module.php";
-      $data = parse_module ( $_FILES['FileName']['tmp_name'] );
-      break;
-*/
+		// ADD New modules here:
+		/*
+		case 'MODULE':
+		include "import_module.php";
+		$data = parse_module ( $_FILES['FileName']['tmp_name'] );
+		break;
+		*/
 
-    case 'PALMDESKTOP':
-      include 'import_palmdesktop.php';
-      if ( delete_palm_events ( $login ) != 1 )
-        $errormsg = translate ( 'Error deleting palm events from webcalendar.' );
-      $data = parse_palmdesktop ( $file['tmp_name'], $exc_private );
-      $type = 'palm';
-      break;
+		case 'PALMDESKTOP':
+			include 'import_palmdesktop.php';
+			if ( delete_palm_events ( $login ) != 1 )
+			$errormsg = translate ( 'Error deleting palm events from webcalendar.' );
+			$data = parse_palmdesktop ( $file['tmp_name'], $exc_private );
+			$type = 'palm';
+			break;
 
-    case 'VCAL':
-      $data = parse_vcal ( $file['tmp_name'] );
-      $type = 'vcal';
-      break;
+		case 'VCAL':
+			$data = parse_vcal ( $file['tmp_name'] );
+			$type = 'vcal';
+			break;
 
-    case 'ICAL':
-      $data = parse_ical ( $file['tmp_name'] );
-      $type = 'ical';
-      break;
+		case 'ICAL':
+			$data = parse_ical ( $file['tmp_name'] );
+			$type = 'ical';
+			break;
 
-    case 'OUTLOOKCSV':
-      include 'import_outlookcsv.php';
-      $data = parse_outlookcsv ( $file['tmp_name'] );
-      $type = 'outlookcsv';
-      break;
-  }
-  $count_con = $count_suc = $error_num = 0;
-  if ( ! empty ( $data ) && empty ( $errormsg ) ) {
-    import_data ( $data, $doOverwrite, $type );
-    echo '
+		case 'OUTLOOKCSV':
+			include 'import_outlookcsv.php';
+			$data = parse_outlookcsv ( $file['tmp_name'] );
+			$type = 'outlookcsv';
+			break;
+	}
+	$count_con = $count_suc = $error_num = 0;
+	if ( ! empty ( $data ) && empty ( $errormsg ) ) {
+		import_data ( $data, $doOverwrite, $type );
+		echo '
     <p>' . translate ( 'Import Results' ) . '</p><br /><br />
     ' . translate ( 'Events successfully imported' ) . ': ' . $count_suc
-     . '<br />
+		. '<br />
     ' . translate ( 'Events from prior import marked as deleted' ) . ': '
-     . $numDeleted . '<br />
+    . $numDeleted . '<br />
     ' . ( empty ( $ALLOW_CONFLICTS )
-      ? translate ( 'Conflicting events' ) . ': ' . $count_con . '<br />
+    ? translate ( 'Conflicting events' ) . ': ' . $count_con . '<br />
     ' : '' ) . translate ( 'Errors' ) . ': ' . $error_num . '<br /><br />';
-  } elseif ( ! empty ( $errormsg ) )
-    echo '
+	} elseif ( ! empty ( $errormsg ) )
+	echo '
     <br /><br />
     <b>' . translate ( 'Error' ) . ':</b> ' . $errormsg . '<br />';
-  else
-    echo '
+	else
+	echo '
     <br /><br />
     <b>' . translate ( 'Error' ) . ':</b> '
-     . translate ( 'There was an error parsing the import file or no events were returned' )
-     . '.<br />';
+    . translate ( 'There was an error parsing the import file or no events were returned' )
+    . '.<br />';
 } else
-  echo '
+echo '
     <br /><br />
     <b>' . translate ( 'Error' ) . ':</b> '
-   . translate ( 'The import file contained no data' ) . '.<br />';
-// echo "<hr />$sqlLog\n";
-echo print_trailer ();
+    . translate ( 'The import file contained no data' ) . '.<br />';
+    // echo "<hr />$sqlLog\n";
+    echo print_trailer ();
 
-?>
+    ?>

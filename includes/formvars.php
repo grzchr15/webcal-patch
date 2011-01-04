@@ -23,13 +23,13 @@
  * @see getGetValue
  */
 function getPostValue ( $name ) {
-  $postName = null;
-  if ( isset ( $_POST ) && is_array ( $_POST ) && isset ( $_POST[$name] ) )
-    $postName = ( get_magic_quotes_gpc () != 0
-      ? $_POST[$name] : (is_array ( $_POST[$name] ) 
-			? array_map ( 'addslashes',  
-			$_POST[$name] ): addslashes ( $_POST[$name] ) ) );
-  return $postName;
+	$postName = null;
+	if ( isset ( $_POST ) && is_array ( $_POST ) && isset ( $_POST[$name] ) )
+	$postName = ( get_magic_quotes_gpc () != 0
+	? $_POST[$name] : (is_array ( $_POST[$name] )
+	? array_map ( 'addslashes',
+	$_POST[$name] ): addslashes ( $_POST[$name] ) ) );
+	return $postName;
 }
 
 /* Gets the value resulting from an HTTP GET method.
@@ -50,11 +50,11 @@ function getPostValue ( $name ) {
  * @see getPostValue
  */
 function getGetValue ( $name ) {
-  $getName = null;
-  if ( isset ( $_GET ) && is_array ( $_GET ) && isset ( $_GET[$name] ) )
-    $getName = ( get_magic_quotes_gpc () != 0
-      ? $_GET[$name] : addslashes ( $_GET[$name] ) );
-  return $getName;
+	$getName = null;
+	if ( isset ( $_GET ) && is_array ( $_GET ) && isset ( $_GET[$name] ) )
+	$getName = ( get_magic_quotes_gpc () != 0
+	? $_GET[$name] : addslashes ( $_GET[$name] ) );
+	return $getName;
 }
 
 /* Gets the value resulting from either HTTP GET method or HTTP POST method.
@@ -82,31 +82,31 @@ function getGetValue ( $name ) {
  * @uses getPostValue
  */
 function getValue ( $name, $format = '', $fatal = false ) {
-  global $settings;
+	global $settings;
 
-  $val = getPostValue ( $name );
-  if ( ! isset ( $val ) )
-    $val = getGetValue ( $name );
-  // for older PHP versions...
-  if ( ! isset ( $val ) && get_magic_quotes_gpc () == 1 && !
-      empty ( $GLOBALS[$name] ) )
-    $val = $GLOBALS[$name];
-  if ( ! isset ( $val ) )
-    return '';
-  if ( ! empty ( $format ) && ! preg_match ( '/^' . $format . '$/', $val ) ) {
-    // does not match
-    if ( $fatal ) {
-      if ( $settings['mode'] == 'dev' )
-        $error_str = ' "' . $val . '"';
-      else
-        $error_str = '';
-      die_miserable_death ( translate ( 'Fatal Error' ) . ': '
-         . translate ( 'Invalid data format for' ) . ' ' . $name . $error_str );
-    }
-    // ignore value
-    return '';
-  }
-  return $val;
+	$val = getPostValue ( $name );
+	if ( ! isset ( $val ) )
+	$val = getGetValue ( $name );
+	// for older PHP versions...
+	if ( ! isset ( $val ) && get_magic_quotes_gpc () == 1 && !
+	empty ( $GLOBALS[$name] ) )
+	$val = $GLOBALS[$name];
+	if ( ! isset ( $val ) )
+	return '';
+	if ( ! empty ( $format ) && ! preg_match ( '/^' . $format . '$/', $val ) ) {
+		// does not match
+		if ( $fatal ) {
+			if ( $settings['mode'] == 'dev' )
+			$error_str = ' "' . $val . '"';
+			else
+			$error_str = '';
+			die_miserable_death ( translate ( 'Fatal Error' ) . ': '
+			. translate ( 'Invalid data format for' ) . ' ' . $name . $error_str );
+		}
+		// ignore value
+		return '';
+	}
+	return $val;
 }
 
 /* Gets an integer value resulting from an HTTP GET or HTTP POST method.
@@ -124,7 +124,7 @@ function getValue ( $name, $format = '', $fatal = false ) {
  * @uses getValue
  */
 function getIntValue ( $name, $fatal = false ) {
-  return getValue ( $name, '-?[0-9]+', $fatal );
+	return getValue ( $name, '-?[0-9]+', $fatal );
 }
 
 ?>

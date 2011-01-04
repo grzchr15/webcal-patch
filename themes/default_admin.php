@@ -130,7 +130,7 @@ $webcal_theme = array (
   'WEEKENDBG'                        => '#D0D0D0',
   'WORK_DAY_END_HOUR'                => '17',
   'WORK_DAY_START_HOUR'              => '8',
-  );
+);
 
 include 'theme_inc.php';
 
