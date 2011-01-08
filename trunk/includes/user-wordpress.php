@@ -312,19 +312,18 @@ function user_load_variables ( $login, $prefix ) {
 	global $app_host, $app_login, $app_pass, $app_db, $app_same_db;
 	global $c, $db_host, $db_login, $db_password, $db_database;
 
-	// if wordpress is in a separate db, we have to connect to it
-	if ($app_same_db != '1') $c = dbi_connect($app_host, $app_login, $app_pass, $app_db);
 	$ret = false;
 
 	//error_log("\nuser-wordpress user_load_variables-:" . " login=".$login." prefix=". $prefix,3,bre_debug_file);
 
 
 	if ( ! empty ( $cached_user_var[$login][$prefix] ) ){
-		// if wordpress is in a separate db, we have to connect back to the webcal db
-		if ($app_same_db != '1') $c = dbi_connect($db_host, $db_login, $db_password, $db_database);
-
+		
 		return  $cached_user_var[$login][$prefix];
 	}
+	// if wordpress is in a separate db, we have to connect to it
+	if ($app_same_db != '1') $c = dbi_connect($app_host, $app_login, $app_pass, $app_db);
+	
 	$cached_user_var = array ();
 
 	//help prevent spoofed username attempts from disclosing fullpath
@@ -365,15 +364,20 @@ function user_load_variables ( $login, $prefix ) {
 		$GLOBALS[$prefix . 'login'] = $login;
 		$GLOBALS[$prefix . 'firstname'] = $row[0];
 		$GLOBALS[$prefix . 'lastname'] = $row[1];
-		$GLOBALS[$prefix . 'email'] = empty ( $row[3] ) ? '' : $row[3];
+		$GLOBALS[$prefix . 'email'] = empty ( $row[2] ) ? '' : $row[2];
+		/*
 		if ( strlen ( $row[1] ) ) {
 			$GLOBALS[$prefix . 'fullname'] = "$row[1]";
 		} else {
 			if ( strlen ( $row[0] ) )
-			$GLOBALS[$prefix . 'fullname'] = "$row[0]";
+				$GLOBALS[$prefix . 'fullname'] = "$row[0]";
 			else
-			$GLOBALS[$prefix . 'fullname'] = $login;
+				$GLOBALS[$prefix . 'fullname'] = $login;
 		}
+		 */
+		$GLOBALS[$prefix . 'fullname'] = "$row[1]";
+		if ( strlen ( $row[0] )>0 )
+				$GLOBALS[$prefix . 'fullname'] .= " $row[0]";
 		$GLOBALS[$prefix . 'password'] = $row[3];
 		$GLOBALS[$prefix . 'id'] = $row[4];
 
@@ -399,7 +403,12 @@ function user_load_variables ( $login, $prefix ) {
 			$GLOBALS[$prefix . $meta_key] = $value;
 			//error_log("\nuser-wordpress user_load_variables: ".$i."/".$cnt."id=".$GLOBALS[$prefix . 'id']. " ". bre_var_dump("meta_key",$meta_key)."=".bre_var_dump("value",$value),3,bre_debug_file);
 			//error_log("\nuser-wordpress user_load_variables: ".$i."/".$cnt."id=".$GLOBALS[$prefix . 'id']. " ". "meta_key=".$meta_key." "."value=".$value." meta_value=".$meta_value,3,bre_debug_file);
-
+			if( $meta_key == 'first_name'){
+				$GLOBALS[$prefix . 'firstname'] = $value;
+			}
+			if( $meta_key == 'last_name'){
+				$GLOBALS[$prefix . 'lastname'] = $value;
+			}
 			if(  $meta_key == 'wp_user_level' ){
 				if(  $value >= 7 ) {
 					$is_admin = 'Y';
