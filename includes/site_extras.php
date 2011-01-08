@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /* $Id: site_extras.php,v 1.23.2.2 2007/08/06 02:28:32 cknudsen Exp $
  *
  * Page Description:

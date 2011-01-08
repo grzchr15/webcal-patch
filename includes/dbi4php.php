@@ -103,7 +103,7 @@ function dbi_connect ( $host, $login, $password, $database, $lazy = true ) {
 		$c = ( $GLOBALS['db_persistent']
 		? mysql_pconnect ( $host, $login, $password )
 		: mysql_connect ( $host, $login, $password ) );
-
+		mysql_query("SET NAMES utf8");
 		if ( $c ) {
 			if ( ! mysql_select_db ( $database ) )
 			return false;
