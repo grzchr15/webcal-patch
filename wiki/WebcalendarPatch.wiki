@@ -1,0 +1,74 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+This project is a Patch/Fork to 
+
+Webcalendar Patch
+
+https://sourceforge.net/projects/webcalendar
+http://www.k5n.us/webcalendar.php
+
+
+= Details =
+
+I took Version 1.23 and
+  * Did a lot changes to make it php 5.3 compatible
+  * add a extended version of report generation to produce output formats in "html--parts" for other websites to display calendar events
+  
+
+= Reports =
+
+Added option to create RSS, html-part and HTML
+
+== HTML-Parts ==
+
+Template variables
+===Page template: ===
+${report_id}
+${start_date}
+${start_date_str}
+${start_date_full_str}
+${end_date}
+${end_date_str}
+${end_date_full_str}
+===Day template: ===
+${events}
+${date}
+${fulldate}
+${report_id}
+
+===Day template: ===
+${name_str}
+${date_str}
+${date}
+${description_str}
+${duration_str}
+${end_time_str}
+${date_full_str}
+${fullname}
+${href_str}
+${id}
+${location}
+${pri_str}
+${report_id}
+${start_time_str}
+${time_str}
+${url}
+${url_str}
+${user}
+${address}
+ Site Extras
+${extra:country}
+${extra:region}
+${extra:PLZ}
+${extra:city}
+${extra:street}
+${extra:number}
+${extra:meetingpoint}
+${extra:music}
+${extra:price}
+${extra:information}
+${extra:enteredfor}
+${extra:longitude}
+${extra:latitude}
